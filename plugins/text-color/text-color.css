@@ -1,0 +1,69 @@
+/* Text Color Tool Styles */
+.text-color-dropdown {
+  position: fixed;
+  background: #2d2d2d;
+  border-radius: 12px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+  z-index: 10000;
+  width: 280px;
+  padding: 20px;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  color: white;
+}
+
+.text-color-dropdown .color-section {
+  margin-bottom: 24px;
+}
+
+.text-color-dropdown .color-section:last-child {
+  margin-bottom: 0;
+}
+
+.text-color-dropdown .color-section-title {
+  color: #888;
+  font-size: 14px;
+  font-weight: 500;
+  margin-bottom: 12px;
+}
+
+.text-color-dropdown .color-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 8px;
+}
+
+.text-color-dropdown .recent-colors {
+  display: flex;
+  gap: 8px;
+}
+
+.text-color-dropdown .color-button {
+  width: 40px;
+  height: 40px;
+  border-radius: 8px;
+  cursor: pointer;
+  border: 2px solid transparent;
+  transition: all 0.1s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.text-color-dropdown .color-button:hover {
+  transform: scale(1.05);
+}
+
+.text-color-dropdown .color-button.selected {
+  border-color: #3b82f6;
+}
+
+.ce-inline-tool--text-color.ce-inline-tool--active {
+  background-color: #e3f2fd;
+  color: #1976d2;
+}
+
+/* Text color styling for applied text */
+.text-color-tool {
+  font-family: inherit;
+}

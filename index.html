@@ -4,310 +4,43 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Editor.js Example</title>
+
+    <!-- External Fonts -->
     <link
       href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap"
       rel="stylesheet"
     />
+
+    <!-- External CSS -->
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css"
     />
+
+    <!-- Custom Plugin Styles -->
+    <link rel="stylesheet" href="./plugins/font-size/font-size.css" />
+    <link rel="stylesheet" href="./plugins/text-color/text-color.css" />
+    <link rel="stylesheet" href="./plugins/code-block/code-block.css" />
+
     <style>
       body {
         font-family: "Montserrat", sans-serif;
-      }
-
-      /* Font Size Tool Styles */
-      .font-size-dropdown {
-        position: absolute;
-        background: white;
-        border: 1px solid #e0e0e0;
-        border-radius: 8px;
-        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-        z-index: 1000;
-        min-width: 140px;
-        padding: 8px 0;
-        font-family: "Montserrat", sans-serif;
-      }
-
-      .font-size-option {
-        padding: 10px 16px;
-        cursor: pointer;
-        transition: background-color 0.2s ease;
-        border-bottom: 1px solid #f5f5f5;
-      }
-
-      .font-size-option:last-child {
-        border-bottom: none;
-      }
-
-      .font-size-option:hover {
-        background-color: #f8f9fa;
-      }
-
-      .ce-inline-tool--font-size {
-        position: relative;
-      }
-
-      /* Font size styling for applied text */
-      .font-size-tool {
-        font-family: inherit;
-      }
-
-      /* Text Color Tool Styles */
-      .text-color-dropdown {
-        position: fixed;
-        background: #2d2d2d;
-        border-radius: 12px;
-        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
-        z-index: 10000;
-        width: 280px;
-        padding: 20px;
-        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
-          sans-serif;
-        color: white;
-      }
-
-      .text-color-dropdown .color-section {
-        margin-bottom: 24px;
-      }
-
-      .text-color-dropdown .color-section:last-child {
-        margin-bottom: 0;
-      }
-
-      .text-color-dropdown .color-section-title {
-        color: #888;
-        font-size: 14px;
-        font-weight: 500;
-        margin-bottom: 12px;
-      }
-
-      .text-color-dropdown .color-grid {
-        display: grid;
-        grid-template-columns: repeat(5, 1fr);
-        gap: 8px;
-      }
-
-      .text-color-dropdown .recent-colors {
-        display: flex;
-        gap: 8px;
-      }
-
-      .text-color-dropdown .color-button {
-        width: 40px;
-        height: 40px;
-        border-radius: 8px;
-        cursor: pointer;
-        border: 2px solid transparent;
-        transition: all 0.1s ease;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        position: relative;
-      }
-
-      .text-color-dropdown .color-button:hover {
-        transform: scale(1.05);
-      }
-
-      .text-color-dropdown .color-button.selected {
-        border-color: #3b82f6;
-      }
-
-      .ce-inline-tool--text-color.ce-inline-tool--active {
-        background-color: #e3f2fd;
-        color: #1976d2;
-      }
-
-      /* Text color styling for applied text */
-      .text-color-tool {
-        font-family: inherit;
-      }
-
-      /* Code Block Tool Styles - Minimal Design */
-      .code-block-tool {
-        border: 1px solid #3a3a3a;
-        border-radius: 6px;
-        margin: 8px 0;
-        background: #282c34;
-        overflow: hidden;
-        font-family: "Monaco", "Menlo", "Ubuntu Mono", monospace;
-      }
-
-      .code-block-header {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: 6px 10px;
-        background: #21252b;
-        border-bottom: 1px solid #3a3a3a;
-        min-height: 28px;
-        position: sticky;
-        top: 0;
-        z-index: 3;
-      }
-
-      .code-block-language-select {
-        background: #282c34;
-        color: #abb2bf;
-        border: 1px solid #3a3a3a;
-        border-radius: 3px;
-        padding: 2px 6px;
-        font-size: 11px;
-        font-family: inherit;
-        min-width: 80px;
-        cursor: pointer;
-      }
-
-      .code-block-language-select:focus {
-        outline: none;
-        border-color: #528bff;
-      }
-
-      .code-block-copy-btn {
-        background: transparent;
-        color: #abb2bf;
-        border: none;
-        border-radius: 3px;
-        padding: 2px 6px;
-        font-size: 11px;
-        cursor: pointer;
-        display: flex;
-        align-items: center;
-        gap: 3px;
-        transition: all 0.2s ease;
-        font-family: inherit;
-        opacity: 0;
-        visibility: hidden;
-      }
-
-      .code-block-tool:hover .code-block-copy-btn {
-        opacity: 1;
-        visibility: visible;
-      }
-
-      .code-block-copy-btn:hover {
-        background: #3a3a3a;
-        color: #61afef;
-      }
-
-      .code-block-copy-btn.copied {
-        color: #98c379;
-        opacity: 1;
-        visibility: visible;
-      }
-
-      .code-block-copy-btn svg {
-        width: 12px;
-        height: 12px;
-        fill: currentColor;
-      }
-
-      .code-block-container {
-        position: relative;
-        background: #282c34;
-        min-height: 100px;
-        resize: vertical;
-        overflow: hidden;
-      }
-
-      .code-block-textarea {
-        width: 100%;
-        min-height: 100px;
-        background: transparent;
-        border: none;
-        outline: none;
-        resize: none;
-        font-family: "Monaco", "Menlo", "Ubuntu Mono", monospace;
-        font-size: 13px;
-        line-height: 1.4;
-        color: transparent;
-        padding: 12px;
-        position: absolute;
-        top: 0;
-        left: 0;
-        z-index: 2;
-        caret-color: #abb2bf;
-        overflow: auto;
-        white-space: pre;
-        word-wrap: normal;
-      }
-
-      .code-block-textarea::placeholder {
-        color: #5c6370;
-      }
-
-      .code-block-textarea::selection {
-        background: rgba(82, 139, 255, 0.3);
-      }
-
-      .code-block-highlighted {
         margin: 0;
-        padding: 12px;
-        background: #282c34;
-        color: #abb2bf;
-        font-family: "Monaco", "Menlo", "Ubuntu Mono", monospace;
-        font-size: 13px;
-        line-height: 1.4;
-        min-height: 100px;
-        overflow: auto;
-        white-space: pre;
-        word-wrap: normal;
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        z-index: 1;
-        pointer-events: none;
+        padding: 20px;
+        background-color: #fafafa;
       }
 
-      .code-block-highlighted code {
-        background: transparent !important;
-        padding: 0 !important;
-        font-family: inherit;
-        font-size: inherit;
-        line-height: inherit;
-        display: block;
-        white-space: pre;
-        word-wrap: normal;
-        color: inherit;
-      }
-
-      /* Show placeholder when textarea is empty */
-      .code-block-textarea:placeholder-shown {
-        color: #5c6370;
-      }
-
-      .code-block-textarea:not(:placeholder-shown) {
-        color: transparent;
-      }
-
-      /* Custom scrollbar for code blocks */
-      .code-block-highlighted::-webkit-scrollbar,
-      .code-block-textarea::-webkit-scrollbar {
-        width: 8px;
-        height: 8px;
-      }
-
-      .code-block-highlighted::-webkit-scrollbar-track,
-      .code-block-textarea::-webkit-scrollbar-track {
-        background: #21252b;
-      }
-
-      .code-block-highlighted::-webkit-scrollbar-thumb,
-      .code-block-textarea::-webkit-scrollbar-thumb {
-        background: #3a3a3a;
-        border-radius: 4px;
-      }
-
-      .code-block-highlighted::-webkit-scrollbar-thumb:hover,
-      .code-block-textarea::-webkit-scrollbar-thumb:hover {
-        background: #4a4a4a;
+      #editorjs {
+        max-width: 800px;
+        margin: 0 auto;
+        background: white;
+        padding: 40px;
+        border-radius: 8px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
       }
     </style>
 
+    <!-- Core Editor.js and Official Plugins -->
     <script src="https://cdn.jsdelivr.net/npm/@editorjs/editorjs@latest"></script>
     <script src="https://cdn.jsdelivr.net/npm/@editorjs/header@latest"></script>
     <script src="https://cdn.jsdelivr.net/npm/@editorjs/paragraph@latest"></script>
@@ -317,7 +50,6 @@
     <script src="https://cdn.jsdelivr.net/npm/@editorjs/inline-code@latest"></script>
     <script src="https://cdn.jsdelivr.net/npm/@editorjs/marker@latest"></script>
     <script src="https://cdn.jsdelivr.net/npm/editorjs-toggle-block"></script>
-
     <script src="https://cdn.jsdelivr.net/npm/@editorjs/delimiter@latest"></script>
     <script src="https://cdn.jsdelivr.net/npm/editorjs-tooltip"></script>
     <script src="https://cdn.jsdelivr.net/npm/@editorjs/nested-list@latest"></script>
@@ -325,204 +57,23 @@
     <script src="https://cdn.jsdelivr.net/npm/@editorjs/quote@2.7.6/dist/quote.umd.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@editorjs/underline@latest"></script>
     <script src="https://cdn.jsdelivr.net/npm/editorjs-text-alignment-blocktune@latest"></script>
-    <script src="https://cdn.jsdelivr.net/npm/editorjs-text-color-plugin@2.0.3/dist/bundle.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@itech-indrustries/editor-js-text-color@2.0.0/dist/bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/editorjs-strikethrough@1.0.0/dist/bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@editorjs/embed@2.7.6/dist/embed.umd.min.js"></script>
+
+    <!-- External Dependencies -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
-    <script src="./font-size-plugin.js"></script>
-    <script src="./text-color-plugin.js"></script>
-    <script src="./code-block-plugin.js"></script>
+
+    <!-- Custom Plugins -->
+    <script src="./plugins/font-size/font-size.js"></script>
+    <script src="./plugins/text-color/text-color.js"></script>
+    <script src="./plugins/code-block/code-block.js"></script>
   </head>
+
   <body>
     <div id="editorjs"></div>
+
     <script>
-      const editor = new EditorJS({
-        holder: "editorjs",
-        autofocus: true,
-        placeholder: "Start writing your content here...",
-
-        inlineToolbar: [
-          "fontSize",
-          "textColor",
-          "marker",
-          "inlineCode",
-          "underline",
-          "strikethrough",
-        ],
-
-        tools: {
-          fontSize: {
-            class: FontSizeTool,
-            config: {
-              fontSizes: [
-                { size: "12px", label: "Small" },
-                { size: "14px", label: "Normal" },
-                { size: "16px", label: "Medium" },
-                { size: "18px", label: "Large" },
-                { size: "20px", label: "Extra Large" },
-                { size: "24px", label: "XXL" },
-                { size: "28px", label: "XXXL" },
-                { size: "32px", label: "Huge" },
-              ],
-              defaultSize: "14px",
-            },
-          },
-          textColor: {
-            class: TextColorTool,
-            config: {
-              textColors: [
-                { color: "#D6D6D6", name: "light gray" },
-                { color: "#9B9B9B", name: "gray" },
-                { color: "#BA8570", name: "brown" },
-                { color: "#C87D49", name: "orange" },
-                { color: "#C4944B", name: "yellow" },
-                { color: "#344C3E", name: "green" },
-                { color: "#379AD3", name: "blue" },
-                { color: "#9D68D3", name: "purple" },
-                { color: "#D15896", name: "pink" },
-                { color: "#E35958", name: "red" },
-              ],
-              backgroundColors: [
-                { color: "#252525", name: "dark gray" },
-                { color: "#2F2F2F", name: "black" },
-                { color: "#4A3229", name: "brown" },
-                { color: "#5C3A23", name: "orange" },
-                { color: "#564328", name: "olive" },
-                { color: "#253D30", name: "green" },
-                { color: "#133A4E", name: "blue" },
-                { color: "#3C2D49", name: "purple" },
-                { color: "#4E2C3B", name: "pink" },
-                { color: "#522E2A", name: "red" },
-              ],
-            },
-          },
-          embed: {
-            class: Embed,
-            config: {
-              services: {
-                youtube: true,
-                codepen: true,
-                instagram: true,
-                twitter: true,
-                facebook: true,
-                vimeo: true,
-                twitch: true,
-                coub: true,
-              },
-            },
-          },
-
-          tooltip: {
-            class: Tooltip,
-            config: {
-              location: "left",
-              underline: true,
-              placeholder: "Enter a tooltip",
-              highlightColor: "#FFEFD5",
-              backgroundColor: "#154360",
-              textColor: "#FDFEFE",
-              holder: "editorId",
-            },
-          },
-          strikethrough: {
-            class: Strikethrough,
-            shortcut: "CMD+SHIFT+X",
-          },
-          underline: {
-            class: Underline,
-            shortcut: "CMD+U",
-          },
-          delimiter: {
-            class: Delimiter,
-            inlineToolbar: true,
-            shortcut: "CMD+SHIFT+D",
-          },
-          quote: {
-            class: Quote,
-            inlineToolbar: true,
-            shortcut: "CMD+SHIFT+O",
-            config: {
-              quotePlaceholder: "Enter a quote",
-              captionPlaceholder: "Quote's author",
-            },
-          },
-          linkTool: {
-            class: LinkTool,
-            config: {
-              endpoint: "http://localhost:8008/fetchUrl", // Your backend endpoint for url data fetching,
-            },
-          },
-          paragraph: {
-            class: Paragraph,
-            inlineToolbar: true,
-            tunes: ["Allignment"],
-          },
-
-          header: {
-            class: Header,
-            inlineToolbar: true,
-            tunes: ["Allignment"],
-            config: {
-              placeholder: "Enter a header",
-              levels: [1, 2, 3],
-              defaultLevel: 2,
-            },
-          },
-          list: {
-            class: NestedList,
-            inlineToolbar: true,
-            config: {
-              defaultStyle: "unordered",
-            },
-          },
-
-          //   Color: {
-          //     class: window.ColorPlugin, // if load from CDN, please try: window.ColorPlugin
-          //     config: {
-          //       colorCollections: [
-          //         "#EC7878",
-          //         "#9C27B0",
-          //         "#673AB7",
-          //         "#3F51B5",
-          //         "#0070FF",
-          //         "#03A9F4",
-          //         "#00BCD4",
-          //         "#4CAF50",
-          //         "#8BC34A",
-          //         "#CDDC39",
-          //         "#FFF",
-          //       ],
-          //       defaultColor: "#FF1300",
-          //       type: "text",
-          //       customPicker: true, // add a button to allow selecting any colour
-          //     },
-          //   },
-
-          checklist: Checklist, // Removed due to potential ReferenceError
-          table: Table,
-          inlineCode: InlineCode,
-          marker: Marker,
-          toggle: {
-            class: ToggleBlock,
-            inlineToolbar: true,
-          },
-          codeBlock: {
-            class: CodeBlock,
-            config: {
-              placeholder: "Enter your code here...",
-            },
-          },
-          Allignment: {
-            class: AlignmentBlockTune,
-            config: {
-              default: "left",
-            },
-          },
-        },
-      });
-
-      // Initialize highlight.js when document is ready
+      // Initialize highlight.js
       document.addEventListener("DOMContentLoaded", function () {
         if (typeof hljs !== "undefined") {
           hljs.configure({
@@ -552,6 +103,177 @@
             ],
           });
         }
+      });
+
+      // Initialize Editor.js
+      const editor = new EditorJS({
+        holder: "editorjs",
+        autofocus: true,
+        placeholder: "Start writing your content here...",
+
+        inlineToolbar: [
+          "fontSize",
+          "textColor",
+          "marker",
+          "inlineCode",
+          "underline",
+          "strikethrough",
+        ],
+
+        tools: {
+          // Custom Tools
+          fontSize: {
+            class: FontSizeTool,
+            config: {
+              fontSizes: [
+                { size: "12px", label: "Small" },
+                { size: "14px", label: "Normal" },
+                { size: "16px", label: "Medium" },
+                { size: "18px", label: "Large" },
+                { size: "20px", label: "Extra Large" },
+                { size: "24px", label: "XXL" },
+                { size: "28px", label: "XXXL" },
+                { size: "32px", label: "Huge" },
+              ],
+              defaultSize: "14px",
+            },
+          },
+
+          textColor: {
+            class: TextColorTool,
+            config: {
+              textColors: [
+                { color: "#D6D6D6", name: "light gray" },
+                { color: "#9B9B9B", name: "gray" },
+                { color: "#BA8570", name: "brown" },
+                { color: "#C87D49", name: "orange" },
+                { color: "#C4944B", name: "yellow" },
+                { color: "#344C3E", name: "green" },
+                { color: "#379AD3", name: "blue" },
+                { color: "#9D68D3", name: "purple" },
+                { color: "#D15896", name: "pink" },
+                { color: "#E35958", name: "red" },
+              ],
+              backgroundColors: [
+                { color: "#252525", name: "dark gray" },
+                { color: "#2F2F2F", name: "black" },
+                { color: "#4A3229", name: "brown" },
+                { color: "#5C3A23", name: "orange" },
+                { color: "#564328", name: "olive" },
+                { color: "#253D30", name: "green" },
+                { color: "#133A4E", name: "blue" },
+                { color: "#3C2D49", name: "purple" },
+                { color: "#4E2C3B", name: "pink" },
+                { color: "#522E2A", name: "red" },
+              ],
+            },
+          },
+
+          codeBlock: {
+            class: CodeBlock,
+            config: {
+              placeholder: "Enter your code here...",
+            },
+          },
+
+          // Official Tools
+          paragraph: {
+            class: Paragraph,
+            inlineToolbar: true,
+            tunes: ["textAlignment"],
+          },
+
+          header: {
+            class: Header,
+            inlineToolbar: true,
+            tunes: ["textAlignment"],
+            config: {
+              placeholder: "Enter a header",
+              levels: [1, 2, 3],
+              defaultLevel: 2,
+            },
+          },
+
+          list: {
+            class: NestedList,
+            inlineToolbar: true,
+            config: {
+              defaultStyle: "unordered",
+            },
+          },
+
+          quote: {
+            class: Quote,
+            inlineToolbar: true,
+            shortcut: "CMD+SHIFT+O",
+            config: {
+              quotePlaceholder: "Enter a quote",
+              captionPlaceholder: "Quote's author",
+            },
+          },
+
+          delimiter: {
+            class: Delimiter,
+            inlineToolbar: true,
+            shortcut: "CMD+SHIFT+D",
+          },
+
+          table: Table,
+          checklist: Checklist,
+          inlineCode: InlineCode,
+          marker: Marker,
+          underline: Underline,
+          strikethrough: Strikethrough,
+
+          toggle: {
+            class: ToggleBlock,
+            inlineToolbar: true,
+          },
+
+          embed: {
+            class: Embed,
+            config: {
+              services: {
+                youtube: true,
+                codepen: true,
+                instagram: true,
+                twitter: true,
+                facebook: true,
+                vimeo: true,
+                twitch: true,
+                coub: true,
+              },
+            },
+          },
+
+          linkTool: {
+            class: LinkTool,
+            config: {
+              endpoint: "http://localhost:8008/fetchUrl",
+            },
+          },
+
+          tooltip: {
+            class: Tooltip,
+            config: {
+              location: "left",
+              underline: true,
+              placeholder: "Enter a tooltip",
+              highlightColor: "#FFEFD5",
+              backgroundColor: "#154360",
+              textColor: "#FDFEFE",
+              holder: "editorId",
+            },
+          },
+
+          // Block Tunes
+          textAlignment: {
+            class: AlignmentBlockTune,
+            config: {
+              default: "left",
+            },
+          },
+        },
       });
     </script>
   </body>
