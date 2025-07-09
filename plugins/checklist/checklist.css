@@ -2,8 +2,12 @@
 .checklist-tool {
   --check-color: #458262;
   --transition-duration: 0.3s;
-  --border-radius: 6px;
+  --border-radius: 4px;
   margin: 8px 0;
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
 }
 
 /* Individual checklist items */
@@ -23,8 +27,8 @@
 
 /* Checkbox styling */
 .checklist-checkbox {
-  width: 20px;
-  height: 20px;
+  width: 18px;
+  height: 18px;
   border: 2px solid #d1d5db;
   border-radius: var(--border-radius);
   background: white;
@@ -87,6 +91,11 @@
   word-wrap: break-word;
   background: transparent;
   color: #3c4654 !important;
+  white-space: pre-wrap;
+  user-select: text;
+  -webkit-user-select: text;
+  -moz-user-select: text;
+  -ms-user-select: text;
 }
 
 .checklist-input:focus {

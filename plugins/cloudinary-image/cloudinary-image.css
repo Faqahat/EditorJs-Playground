@@ -1,0 +1,452 @@
+/* Cloudinary Image Tool Styles */
+.cloudinary-image-tool {
+  margin: 16px 0;
+  position: relative;
+}
+
+/* Uploader Styles */
+.cloudinary-uploader {
+  border: 2px dashed #d1d5db;
+  border-radius: 8px;
+  padding: 32px 16px;
+  text-align: center;
+  transition: all 0.3s ease;
+  background: #fafafa;
+  min-height: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.cloudinary-uploader:hover {
+  border-color: #3b82f6;
+  background: #f8faff;
+}
+
+.cloudinary-uploader.dragover {
+  border-color: #3b82f6;
+  background: #eff6ff;
+  transform: scale(1.02);
+}
+
+.cloudinary-uploader-content {
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  width: 100%;
+}
+
+.cloudinary-upload-icon {
+  color: #6b7280;
+  transition: color 0.3s ease;
+}
+
+.cloudinary-uploader:hover .cloudinary-upload-icon {
+  color: #3b82f6;
+}
+
+.cloudinary-upload-text {
+  text-align: center;
+}
+
+.cloudinary-upload-title {
+  font-size: 16px;
+  font-weight: 600;
+  color: #374151;
+  margin-bottom: 4px;
+}
+
+.cloudinary-upload-subtitle {
+  font-size: 14px;
+  color: #6b7280;
+}
+
+/* Progress Styles */
+.cloudinary-upload-progress {
+  width: 100%;
+  max-width: 300px;
+}
+
+.cloudinary-progress-bar {
+  width: 100%;
+  height: 8px;
+  background: #e5e7eb;
+  border-radius: 4px;
+  overflow: hidden;
+  margin-bottom: 12px;
+}
+
+.cloudinary-progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #3b82f6, #1d4ed8);
+  width: 0%;
+  transition: width 0.3s ease;
+  border-radius: 4px;
+}
+
+.cloudinary-progress-text {
+  font-size: 14px;
+  color: #6b7280;
+  text-align: center;
+}
+
+/* Image Display Styles */
+.cloudinary-image-holder {
+  position: relative;
+  text-align: center;
+  margin: 16px 0;
+  transition: all 0.3s ease;
+}
+
+.cloudinary-image-container {
+  position: relative;
+  display: inline-block;
+  max-width: 100%;
+  transition: all 0.2s ease;
+}
+
+.cloudinary-image-container:hover .cloudinary-options-overlay {
+  opacity: 1;
+}
+
+.cloudinary-image {
+  max-width: 100%;
+  height: auto;
+  border-radius: 6px;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  display: block;
+  user-select: none;
+}
+
+.cloudinary-image--loaded {
+  opacity: 1;
+}
+
+/* Image Options Overlay */
+.cloudinary-options-overlay {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+  display: flex;
+  gap: 4px;
+  pointer-events: none;
+}
+
+.cloudinary-options-overlay > * {
+  pointer-events: all;
+}
+
+.cloudinary-options-button {
+  background: rgba(0, 0, 0, 0.7);
+  border: none;
+  border-radius: 4px;
+  color: white;
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  backdrop-filter: blur(4px);
+}
+
+.cloudinary-options-button:hover {
+  background: rgba(0, 0, 0, 0.8);
+  transform: scale(1.05);
+}
+
+.cloudinary-resize-handle {
+  background: rgba(0, 0, 0, 0.7);
+  border: none;
+  border-radius: 4px;
+  color: white;
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: nw-resize;
+  transition: all 0.2s ease;
+  backdrop-filter: blur(4px);
+}
+
+.cloudinary-resize-handle:hover {
+  background: rgba(0, 0, 0, 0.8);
+  transform: scale(1.05);
+}
+
+/* Options Menu */
+.cloudinary-options-menu {
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+  padding: 8px;
+  min-width: 140px;
+  border: 1px solid #e5e7eb;
+  backdrop-filter: blur(10px);
+}
+
+.cloudinary-option-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  border: none;
+  border-radius: 6px;
+  background: transparent;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  width: 100%;
+  text-align: left;
+  font-size: 13px;
+}
+
+.cloudinary-option-item:hover {
+  background: #f3f4f6;
+}
+
+.cloudinary-option-item.active {
+  background: #eff6ff;
+  color: #2563eb;
+}
+
+.option-icon {
+  font-size: 14px;
+  width: 20px;
+  text-align: center;
+}
+
+.option-label {
+  font-weight: 500;
+  color: #374151;
+}
+
+.cloudinary-option-item.active .option-label {
+  color: #2563eb;
+}
+
+/* Alignment Variations */
+.cloudinary-image--left {
+  text-align: left;
+}
+
+.cloudinary-image--left .cloudinary-image-container {
+  margin: 0;
+}
+
+.cloudinary-image--center {
+  text-align: center;
+}
+
+.cloudinary-image--center .cloudinary-image-container {
+  margin: 0 auto;
+}
+
+.cloudinary-image--right {
+  text-align: right;
+}
+
+.cloudinary-image--right .cloudinary-image-container {
+  margin: 0 0 0 auto;
+}
+
+/* Image Style Variations */
+.cloudinary-image--with-background {
+  background: #f8fafc;
+  padding: 20px;
+  border-radius: 8px;
+}
+
+/* Caption Styles */
+.cloudinary-caption {
+  margin-top: 12px;
+  padding: 8px 12px;
+  font-size: 14px;
+  color: #6b7280;
+  border-radius: 6px;
+  border: 1px solid transparent;
+  transition: all 0.3s ease;
+  min-height: 20px;
+  outline: none;
+}
+
+.cloudinary-caption:focus {
+  border-color: #3b82f6;
+  background: rgba(59, 130, 246, 0.05);
+  color: #374151;
+}
+
+.cloudinary-caption:empty::before {
+  content: attr(data-placeholder);
+  color: #9ca3af;
+  font-style: italic;
+}
+
+/* Settings Panel - Remove old styles */
+/* Settings are now handled by the on-image options menu */
+
+/* Error Styles */
+.cloudinary-error {
+  background: #fef2f2;
+  border: 1px solid #fecaca;
+  color: #dc2626;
+  padding: 12px 16px;
+  border-radius: 6px;
+  margin-top: 12px;
+  font-size: 14px;
+  text-align: center;
+  animation: slideIn 0.3s ease;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Dark Mode Support */
+@media (prefers-color-scheme: dark) {
+  .cloudinary-uploader {
+    background: #1f2937;
+    border-color: #374151;
+  }
+
+  .cloudinary-uploader:hover {
+    background: #111827;
+    border-color: #3b82f6;
+  }
+
+  .cloudinary-uploader.dragover {
+    background: #1e3a8a;
+  }
+
+  .cloudinary-upload-title {
+    color: #f9fafb;
+  }
+
+  .cloudinary-upload-subtitle {
+    color: #9ca3af;
+  }
+
+  .cloudinary-upload-icon {
+    color: #9ca3af;
+  }
+
+  .cloudinary-uploader:hover .cloudinary-upload-icon {
+    color: #3b82f6;
+  }
+
+  .cloudinary-progress-bar {
+    background: #374151;
+  }
+
+  .cloudinary-progress-text {
+    color: #9ca3af;
+  }
+
+  .cloudinary-image--with-background {
+    background: #1f2937;
+  }
+
+  .cloudinary-caption {
+    color: #d1d5db;
+  }
+
+  .cloudinary-caption:focus {
+    background: rgba(59, 130, 246, 0.1);
+    color: #f9fafb;
+  }
+
+  .cloudinary-caption:empty::before {
+    color: #6b7280;
+  }
+
+  .cloudinary-options-menu {
+    background: #1f2937;
+    border-color: #374151;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+  }
+
+  .cloudinary-option-item:hover {
+    background: #374151;
+  }
+
+  .cloudinary-option-item.active {
+    background: #1e3a8a;
+    color: #93c5fd;
+  }
+
+  .option-label {
+    color: #e5e7eb;
+  }
+
+  .cloudinary-option-item.active .option-label {
+    color: #93c5fd;
+  }
+
+  .cloudinary-error {
+    background: #7f1d1d;
+    border-color: #dc2626;
+    color: #fca5a5;
+  }
+}
+
+/* Responsive Design */
+@media (max-width: 640px) {
+  .cloudinary-uploader {
+    padding: 24px 12px;
+    min-height: 160px;
+  }
+
+  .cloudinary-upload-title {
+    font-size: 14px;
+  }
+
+  .cloudinary-upload-subtitle {
+    font-size: 13px;
+  }
+
+  .cloudinary-caption {
+    font-size: 13px;
+    padding: 6px 10px;
+  }
+
+  .cloudinary-options-button,
+  .cloudinary-resize-handle {
+    width: 32px;
+    height: 32px;
+  }
+
+  .cloudinary-options-menu {
+    min-width: 120px;
+  }
+
+  .cloudinary-option-item {
+    padding: 10px;
+    font-size: 12px;
+  }
+}
+
+/* Accessibility */
+@media (prefers-reduced-motion: reduce) {
+  .cloudinary-uploader,
+  .cloudinary-image,
+  .cloudinary-settings-button,
+  .cloudinary-error {
+    animation: none !important;
+    transition: none !important;
+  }
+}

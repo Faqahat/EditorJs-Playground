@@ -24,6 +24,11 @@
     <link rel="stylesheet" href="./plugins/line-separator/line-separator.css" />
     <link rel="stylesheet" href="./plugins/web-bookmark/web-bookmark.css" />
     <link rel="stylesheet" href="./plugins/checklist/checklist.css" />
+    <link
+      rel="stylesheet"
+      href="./plugins/cloudinary-image/cloudinary-image.css"
+    />
+    <link rel="stylesheet" href="./plugins/image/image.css" />
 
     <style>
       body {
@@ -66,6 +71,8 @@
     <script src="./plugins/line-separator/line-separator.js"></script>
     <script src="./plugins/web-bookmark/web-bookmark.js"></script>
     <script src="./plugins/checklist/checklist.js"></script>
+    <script src="./plugins/cloudinary-image/cloudinary-image.js"></script>
+    <script src="./plugins/image/image.js"></script>
   </head>
 
   <body>
@@ -182,8 +189,36 @@
 
           checklist: {
             class: Checklist,
+            inlineToolbar: true,
             config: {
               shortcut: "CMD+SHIFT+C",
+            },
+          },
+
+          cloudinaryImage: {
+            class: CloudinaryImage,
+            config: {
+              cloudName: "dqjambruk", // Replace with your Cloudinary cloud name from dashboard
+              uploadPreset: "mylastdraft", // Replace with your unsigned upload preset name
+              shortcut: "CMD+SHIFT+I",
+            },
+          },
+
+          image: {
+            class: SimpleImage,
+            config: {
+              uploadEndpoint: "https://your-api.com/upload", // Replace with your upload endpoint
+              uploadField: "image", // Field name for the image file
+              additionalRequestData: {
+                // Add any additional fields your API needs
+                // folder: "uploads",
+                // user_id: "123"
+              },
+              additionalRequestHeaders: {
+                // Add any headers your API needs
+                // "Authorization": "Bearer your-token"
+              },
+              shortcut: "CMD+SHIFT+P",
             },
           },
 
