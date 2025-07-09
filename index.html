@@ -8,6 +8,10 @@
       href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap"
       rel="stylesheet"
     />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css"
+    />
     <style>
       body {
         font-family: "Montserrat", sans-serif;
@@ -120,6 +124,188 @@
       .text-color-tool {
         font-family: inherit;
       }
+
+      /* Code Block Tool Styles - Minimal Design */
+      .code-block-tool {
+        border: 1px solid #3a3a3a;
+        border-radius: 6px;
+        margin: 8px 0;
+        background: #282c34;
+        overflow: hidden;
+        font-family: "Monaco", "Menlo", "Ubuntu Mono", monospace;
+      }
+
+      .code-block-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 6px 10px;
+        background: #21252b;
+        border-bottom: 1px solid #3a3a3a;
+        min-height: 28px;
+        position: sticky;
+        top: 0;
+        z-index: 3;
+      }
+
+      .code-block-language-select {
+        background: #282c34;
+        color: #abb2bf;
+        border: 1px solid #3a3a3a;
+        border-radius: 3px;
+        padding: 2px 6px;
+        font-size: 11px;
+        font-family: inherit;
+        min-width: 80px;
+        cursor: pointer;
+      }
+
+      .code-block-language-select:focus {
+        outline: none;
+        border-color: #528bff;
+      }
+
+      .code-block-copy-btn {
+        background: transparent;
+        color: #abb2bf;
+        border: none;
+        border-radius: 3px;
+        padding: 2px 6px;
+        font-size: 11px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        gap: 3px;
+        transition: all 0.2s ease;
+        font-family: inherit;
+        opacity: 0;
+        visibility: hidden;
+      }
+
+      .code-block-tool:hover .code-block-copy-btn {
+        opacity: 1;
+        visibility: visible;
+      }
+
+      .code-block-copy-btn:hover {
+        background: #3a3a3a;
+        color: #61afef;
+      }
+
+      .code-block-copy-btn.copied {
+        color: #98c379;
+        opacity: 1;
+        visibility: visible;
+      }
+
+      .code-block-copy-btn svg {
+        width: 12px;
+        height: 12px;
+        fill: currentColor;
+      }
+
+      .code-block-container {
+        position: relative;
+        background: #282c34;
+        min-height: 100px;
+        resize: vertical;
+        overflow: hidden;
+      }
+
+      .code-block-textarea {
+        width: 100%;
+        min-height: 100px;
+        background: transparent;
+        border: none;
+        outline: none;
+        resize: none;
+        font-family: "Monaco", "Menlo", "Ubuntu Mono", monospace;
+        font-size: 13px;
+        line-height: 1.4;
+        color: transparent;
+        padding: 12px;
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: 2;
+        caret-color: #abb2bf;
+        overflow: auto;
+        white-space: pre;
+        word-wrap: normal;
+      }
+
+      .code-block-textarea::placeholder {
+        color: #5c6370;
+      }
+
+      .code-block-textarea::selection {
+        background: rgba(82, 139, 255, 0.3);
+      }
+
+      .code-block-highlighted {
+        margin: 0;
+        padding: 12px;
+        background: #282c34;
+        color: #abb2bf;
+        font-family: "Monaco", "Menlo", "Ubuntu Mono", monospace;
+        font-size: 13px;
+        line-height: 1.4;
+        min-height: 100px;
+        overflow: auto;
+        white-space: pre;
+        word-wrap: normal;
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        z-index: 1;
+        pointer-events: none;
+      }
+
+      .code-block-highlighted code {
+        background: transparent !important;
+        padding: 0 !important;
+        font-family: inherit;
+        font-size: inherit;
+        line-height: inherit;
+        display: block;
+        white-space: pre;
+        word-wrap: normal;
+        color: inherit;
+      }
+
+      /* Show placeholder when textarea is empty */
+      .code-block-textarea:placeholder-shown {
+        color: #5c6370;
+      }
+
+      .code-block-textarea:not(:placeholder-shown) {
+        color: transparent;
+      }
+
+      /* Custom scrollbar for code blocks */
+      .code-block-highlighted::-webkit-scrollbar,
+      .code-block-textarea::-webkit-scrollbar {
+        width: 8px;
+        height: 8px;
+      }
+
+      .code-block-highlighted::-webkit-scrollbar-track,
+      .code-block-textarea::-webkit-scrollbar-track {
+        background: #21252b;
+      }
+
+      .code-block-highlighted::-webkit-scrollbar-thumb,
+      .code-block-textarea::-webkit-scrollbar-thumb {
+        background: #3a3a3a;
+        border-radius: 4px;
+      }
+
+      .code-block-highlighted::-webkit-scrollbar-thumb:hover,
+      .code-block-textarea::-webkit-scrollbar-thumb:hover {
+        background: #4a4a4a;
+      }
     </style>
 
     <script src="https://cdn.jsdelivr.net/npm/@editorjs/editorjs@latest"></script>
@@ -131,7 +317,7 @@
     <script src="https://cdn.jsdelivr.net/npm/@editorjs/inline-code@latest"></script>
     <script src="https://cdn.jsdelivr.net/npm/@editorjs/marker@latest"></script>
     <script src="https://cdn.jsdelivr.net/npm/editorjs-toggle-block"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@editorjs/code@latest"></script>
+
     <script src="https://cdn.jsdelivr.net/npm/@editorjs/delimiter@latest"></script>
     <script src="https://cdn.jsdelivr.net/npm/editorjs-tooltip"></script>
     <script src="https://cdn.jsdelivr.net/npm/@editorjs/nested-list@latest"></script>
@@ -143,8 +329,10 @@
     <script src="https://cdn.jsdelivr.net/npm/@itech-indrustries/editor-js-text-color@2.0.0/dist/bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/editorjs-strikethrough@1.0.0/dist/bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@editorjs/embed@2.7.6/dist/embed.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
     <script src="./font-size-plugin.js"></script>
     <script src="./text-color-plugin.js"></script>
+    <script src="./code-block-plugin.js"></script>
   </head>
   <body>
     <div id="editorjs"></div>
@@ -313,12 +501,17 @@
 
           checklist: Checklist, // Removed due to potential ReferenceError
           table: Table,
-          code: CodeTool, // Removed due to potential ReferenceError
           inlineCode: InlineCode,
           marker: Marker,
           toggle: {
             class: ToggleBlock,
             inlineToolbar: true,
+          },
+          codeBlock: {
+            class: CodeBlock,
+            config: {
+              placeholder: "Enter your code here...",
+            },
           },
           Allignment: {
             class: AlignmentBlockTune,
@@ -327,6 +520,38 @@
             },
           },
         },
+      });
+
+      // Initialize highlight.js when document is ready
+      document.addEventListener("DOMContentLoaded", function () {
+        if (typeof hljs !== "undefined") {
+          hljs.configure({
+            ignoreUnescapedHTML: true,
+            languages: [
+              "javascript",
+              "python",
+              "java",
+              "cpp",
+              "c",
+              "csharp",
+              "php",
+              "ruby",
+              "go",
+              "rust",
+              "typescript",
+              "html",
+              "css",
+              "scss",
+              "json",
+              "xml",
+              "yaml",
+              "markdown",
+              "bash",
+              "shell",
+              "sql",
+            ],
+          });
+        }
       });
     </script>
   </body>
