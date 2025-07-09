@@ -21,6 +21,9 @@
     <link rel="stylesheet" href="./plugins/font-size/font-size.css" />
     <link rel="stylesheet" href="./plugins/text-color/text-color.css" />
     <link rel="stylesheet" href="./plugins/code-block/code-block.css" />
+    <link rel="stylesheet" href="./plugins/line-separator/line-separator.css" />
+    <link rel="stylesheet" href="./plugins/web-bookmark/web-bookmark.css" />
+    <link rel="stylesheet" href="./plugins/checklist/checklist.css" />
 
     <style>
       body {
@@ -45,28 +48,24 @@
     <script src="https://cdn.jsdelivr.net/npm/@editorjs/header@latest"></script>
     <script src="https://cdn.jsdelivr.net/npm/@editorjs/paragraph@latest"></script>
     <script src="https://cdn.jsdelivr.net/npm/@editorjs/list@latest"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@editorjs/checklist@latest"></script>
     <script src="https://cdn.jsdelivr.net/npm/@editorjs/table@latest"></script>
     <script src="https://cdn.jsdelivr.net/npm/@editorjs/inline-code@latest"></script>
     <script src="https://cdn.jsdelivr.net/npm/@editorjs/marker@latest"></script>
     <script src="https://cdn.jsdelivr.net/npm/editorjs-toggle-block"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@editorjs/delimiter@latest"></script>
     <script src="https://cdn.jsdelivr.net/npm/editorjs-tooltip"></script>
     <script src="https://cdn.jsdelivr.net/npm/@editorjs/nested-list@latest"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@editorjs/link@2.6.2/dist/link.umd.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@editorjs/quote@2.7.6/dist/quote.umd.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@editorjs/underline@latest"></script>
-    <script src="https://cdn.jsdelivr.net/npm/editorjs-text-alignment-blocktune@latest"></script>
     <script src="https://cdn.jsdelivr.net/npm/editorjs-strikethrough@1.0.0/dist/bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@editorjs/embed@2.7.6/dist/embed.umd.min.js"></script>
-
     <!-- External Dependencies -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
-
     <!-- Custom Plugins -->
     <script src="./plugins/font-size/font-size.js"></script>
     <script src="./plugins/text-color/text-color.js"></script>
     <script src="./plugins/code-block/code-block.js"></script>
+    <script src="./plugins/line-separator/line-separator.js"></script>
+    <script src="./plugins/web-bookmark/web-bookmark.js"></script>
+    <script src="./plugins/checklist/checklist.js"></script>
   </head>
 
   <body>
@@ -110,15 +109,6 @@
         holder: "editorjs",
         autofocus: true,
         placeholder: "Start writing your content here...",
-
-        inlineToolbar: [
-          "fontSize",
-          "textColor",
-          "marker",
-          "inlineCode",
-          "underline",
-          "strikethrough",
-        ],
 
         tools: {
           // Custom Tools
@@ -176,17 +166,36 @@
             },
           },
 
+          lineSeparator: {
+            class: LineSeparator,
+            config: {
+              shortcut: "CMD+SHIFT+L",
+            },
+          },
+
+          webBookmark: {
+            class: WebBookmark,
+            config: {
+              shortcut: "CMD+SHIFT+B",
+            },
+          },
+
+          checklist: {
+            class: Checklist,
+            config: {
+              shortcut: "CMD+SHIFT+C",
+            },
+          },
+
           // Official Tools
           paragraph: {
             class: Paragraph,
             inlineToolbar: true,
-            tunes: ["textAlignment"],
           },
 
           header: {
             class: Header,
             inlineToolbar: true,
-            tunes: ["textAlignment"],
             config: {
               placeholder: "Enter a header",
               levels: [1, 2, 3],
@@ -202,24 +211,7 @@
             },
           },
 
-          quote: {
-            class: Quote,
-            inlineToolbar: true,
-            shortcut: "CMD+SHIFT+O",
-            config: {
-              quotePlaceholder: "Enter a quote",
-              captionPlaceholder: "Quote's author",
-            },
-          },
-
-          delimiter: {
-            class: Delimiter,
-            inlineToolbar: true,
-            shortcut: "CMD+SHIFT+D",
-          },
-
           table: Table,
-          checklist: Checklist,
           inlineCode: InlineCode,
           marker: Marker,
           underline: Underline,
@@ -246,13 +238,6 @@
             },
           },
 
-          linkTool: {
-            class: LinkTool,
-            config: {
-              endpoint: "http://localhost:8008/fetchUrl",
-            },
-          },
-
           tooltip: {
             class: Tooltip,
             config: {
@@ -263,14 +248,6 @@
               backgroundColor: "#154360",
               textColor: "#FDFEFE",
               holder: "editorId",
-            },
-          },
-
-          // Block Tunes
-          textAlignment: {
-            class: AlignmentBlockTune,
-            config: {
-              default: "left",
             },
           },
         },

@@ -1,0 +1,203 @@
+/* Line Separator Tool Styles */
+.line-separator-tool {
+  margin: 24px 0;
+  padding: 16px 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.line-separator-line {
+  width: 100%;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    #e1e5e9 20%,
+    #e1e5e9 80%,
+    transparent 100%
+  );
+  position: relative;
+}
+
+.line-separator-line.style-solid {
+  background: #e1e5e9;
+  height: 1px;
+}
+
+.line-separator-line.style-dashed {
+  background: repeating-linear-gradient(
+    90deg,
+    #e1e5e9 0px,
+    #e1e5e9 8px,
+    transparent 8px,
+    transparent 16px
+  );
+  height: 1px;
+}
+
+.line-separator-line.style-dotted {
+  background: repeating-linear-gradient(
+    90deg,
+    #e1e5e9 0px,
+    #e1e5e9 3px,
+    transparent 3px,
+    transparent 8px
+  );
+  height: 1px;
+}
+
+.line-separator-line.style-thick {
+  background: #e1e5e9;
+  height: 3px;
+  border-radius: 2px;
+}
+
+.line-separator-line.style-double {
+  background: #e1e5e9;
+  height: 1px;
+  box-shadow: 0 3px 0 #e1e5e9;
+}
+
+.line-separator-line.style-wavy {
+  background: repeating-linear-gradient(
+    90deg,
+    #e1e5e9 0px,
+    #e1e5e9 2px,
+    transparent 2px,
+    transparent 4px
+  );
+  height: 2px;
+  position: relative;
+}
+
+.line-separator-line.style-wavy::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 4'><path d='M0,2 Q5,0 10,2 T20,2' stroke='%23e1e5e9' stroke-width='1' fill='none'/></svg>")
+    repeat-x;
+  background-size: 20px 4px;
+}
+
+.line-separator-line.style-gradient {
+  background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+  height: 2px;
+  border-radius: 1px;
+}
+
+.line-separator-line.style-shadow {
+  background: #e1e5e9;
+  height: 1px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Settings panel */
+.line-separator-settings {
+  position: absolute;
+  top: -40px;
+  right: 0;
+  background: white;
+  border: 1px solid #e1e5e9;
+  border-radius: 6px;
+  padding: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+  display: none;
+  min-width: 200px;
+}
+
+.line-separator-tool:hover .line-separator-settings {
+  display: block;
+}
+
+.line-separator-settings-title {
+  font-size: 12px;
+  font-weight: 600;
+  color: #666;
+  margin-bottom: 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.line-separator-style-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 6px;
+}
+
+.line-separator-style-option {
+  padding: 8px;
+  border: 1px solid #e1e5e9;
+  border-radius: 4px;
+  cursor: pointer;
+  text-align: center;
+  font-size: 11px;
+  color: #666;
+  transition: all 0.2s ease;
+  background: white;
+}
+
+.line-separator-style-option:hover {
+  border-color: #3b82f6;
+  background: #f8faff;
+}
+
+.line-separator-style-option.active {
+  border-color: #3b82f6;
+  background: #3b82f6;
+  color: white;
+}
+
+.line-separator-style-preview {
+  width: 100%;
+  height: 2px;
+  margin: 4px 0 2px;
+  background: currentColor;
+}
+
+.line-separator-style-preview.dashed {
+  background: repeating-linear-gradient(
+    90deg,
+    currentColor 0px,
+    currentColor 4px,
+    transparent 4px,
+    transparent 8px
+  );
+}
+
+.line-separator-style-preview.dotted {
+  background: repeating-linear-gradient(
+    90deg,
+    currentColor 0px,
+    currentColor 2px,
+    transparent 2px,
+    transparent 6px
+  );
+}
+
+.line-separator-style-preview.thick {
+  height: 3px;
+}
+
+.line-separator-style-preview.double {
+  box-shadow: 0 3px 0 currentColor;
+}
+
+.line-separator-style-preview.gradient {
+  background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+}
+
+.line-separator-style-preview.shadow {
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+/* Hover effect for the entire separator */
+.line-separator-tool:hover {
+  background: rgba(59, 130, 246, 0.02);
+  border-radius: 6px;
+}

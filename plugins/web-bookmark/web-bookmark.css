@@ -1,0 +1,459 @@
+/* Web Bookmark Tool Styles - Override Editor.js defaults */
+.ce-block .web-bookmark-tool {
+  border: 1px solid #e1e5e9 !important;
+  border-radius: 8px !important;
+  overflow: hidden !important;
+  margin: 16px 0 !important;
+  background: white !important;
+  transition: all 0.3s ease !important;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1) !important;
+  position: relative !important;
+  width: 100% !important;
+  display: block !important;
+}
+
+.ce-block .web-bookmark-tool:hover {
+  border-color: #3b82f6 !important;
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.15) !important;
+  transform: translateY(-1px) !important;
+}
+
+/* Reset any inherited Editor.js styles */
+.web-bookmark-tool *,
+.web-bookmark-tool *::before,
+.web-bookmark-tool *::after {
+  box-sizing: border-box !important;
+  content: none !important;
+}
+
+.web-bookmark-tool::before,
+.web-bookmark-tool::after {
+  content: none !important;
+  display: none !important;
+}
+
+.web-bookmark-content::before,
+.web-bookmark-content::after {
+  content: none !important;
+  display: none !important;
+}
+
+.web-bookmark-tool {
+  border: 1px solid #e1e5e9 !important;
+  border-radius: 8px !important;
+  overflow: hidden !important;
+  margin: 16px 0 !important;
+  background: white !important;
+  transition: all 0.3s ease !important;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1) !important;
+  position: relative !important;
+  width: 100% !important;
+  display: block !important;
+  max-width: 100% !important;
+}
+
+.web-bookmark-tool:hover {
+  border-color: #3b82f6 !important;
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.15) !important;
+  transform: translateY(-1px) !important;
+}
+
+.web-bookmark-content {
+  display: flex !important;
+  text-decoration: none !important;
+  color: inherit !important;
+  min-height: 120px !important;
+  width: 100% !important;
+  align-items: stretch !important;
+}
+
+.web-bookmark-text {
+  flex: 1 !important;
+  padding: 16px 20px !important;
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: space-between !important;
+  min-width: 0 !important;
+  min-height: 120px !important;
+}
+
+.web-bookmark-title {
+  font-size: 14px !important;
+  font-weight: 600 !important;
+  color: #1a1a1a !important;
+  line-height: 1.3 !important;
+  margin: 0 0 8px 0 !important;
+  overflow: hidden !important;
+  white-space: nowrap !important;
+  text-overflow: ellipsis !important;
+}
+
+.web-bookmark-description {
+  font-size: 12px !important;
+  color: #666 !important;
+  line-height: 1.4 !important;
+  margin: 0 0 12px 0 !important;
+  overflow: hidden !important;
+  display: -webkit-box !important;
+  -webkit-line-clamp: 2 !important;
+  line-clamp: 2 !important;
+  -webkit-box-orient: vertical !important;
+  flex: 1 !important;
+}
+
+.web-bookmark-meta {
+  display: flex !important;
+  align-items: center !important;
+  font-size: 12px !important;
+  color: #888 !important;
+  margin-top: auto !important;
+}
+
+.web-bookmark-favicon {
+  width: 16px !important;
+  height: 16px !important;
+  margin-right: 8px !important;
+  border-radius: 2px !important;
+  object-fit: cover !important;
+  flex-shrink: 0 !important;
+}
+
+.web-bookmark-url {
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  white-space: nowrap !important;
+  max-width: 200px !important;
+}
+
+.web-bookmark-image {
+  width: 240px !important;
+  height: 120px !important;
+  object-fit: cover !important;
+  flex-shrink: 0 !important;
+  background: #f5f5f5 !important;
+  display: block !important;
+}
+
+.web-bookmark-image-placeholder {
+  width: 120px !important;
+  height: 120px !important;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  flex-shrink: 0 !important;
+}
+
+.web-bookmark-image-placeholder svg {
+  width: 32px !important;
+  height: 32px !important;
+  color: white !important;
+  opacity: 0.8 !important;
+}
+
+/* Input Form Styles - Strong selectors to override defaults */
+.ce-block .web-bookmark-input-form,
+.web-bookmark-tool .web-bookmark-input-form {
+  padding: 16px 0 !important;
+  background: transparent !important;
+  text-align: center !important;
+  border: none !important;
+  box-shadow: none !important;
+  margin: 0 !important;
+}
+
+.ce-block .web-bookmark-input-title,
+.web-bookmark-tool .web-bookmark-input-title {
+  font-size: 14px !important;
+  font-weight: 400 !important;
+  color: #6b7280 !important;
+  margin-bottom: 16px !important;
+  margin-top: 0 !important;
+}
+
+.ce-block .web-bookmark-input-wrapper,
+.web-bookmark-tool .web-bookmark-input-wrapper {
+  display: flex !important;
+  gap: 8px !important;
+  max-width: 400px !important;
+  margin: 0 auto !important;
+}
+
+.ce-block .web-bookmark-input,
+.web-bookmark-tool .web-bookmark-input {
+  flex: 1 !important;
+  padding: 8px 12px !important;
+  border: 1px solid #e5e7eb !important;
+  border-radius: 4px !important;
+  font-size: 14px !important;
+  outline: none !important;
+  transition: border-color 0.2s ease !important;
+  background: white !important;
+  box-shadow: none !important;
+  font-family: inherit !important;
+}
+
+.ce-block .web-bookmark-input:focus,
+.web-bookmark-tool .web-bookmark-input:focus {
+  border-color: #6b7280 !important;
+  box-shadow: none !important;
+}
+
+.ce-block .web-bookmark-input::placeholder,
+.web-bookmark-tool .web-bookmark-input::placeholder {
+  color: #9ca3af !important;
+  font-size: 13px !important;
+}
+
+.ce-block .web-bookmark-submit,
+.web-bookmark-tool .web-bookmark-submit {
+  padding: 8px 16px !important;
+  background: transparent !important;
+  color: #6b7280 !important;
+  border: 1px solid #e5e7eb !important;
+  border-radius: 4px !important;
+  font-size: 13px !important;
+  font-weight: 400 !important;
+  cursor: pointer !important;
+  transition: all 0.2s ease !important;
+  font-family: inherit !important;
+}
+
+.ce-block .web-bookmark-submit:hover,
+.web-bookmark-tool .web-bookmark-submit:hover {
+  background: #f9fafb !important;
+  border-color: #6b7280 !important;
+  color: #374151 !important;
+}
+
+.ce-block .web-bookmark-submit:disabled,
+.web-bookmark-tool .web-bookmark-submit:disabled {
+  background: transparent !important;
+  color: #9ca3af !important;
+  cursor: not-allowed !important;
+}
+
+/* Loading State */
+.web-bookmark-loading {
+  padding: 32px 20px;
+  text-align: center;
+  color: #6b7280;
+  background: transparent;
+}
+
+.web-bookmark-loading-spinner {
+  width: 20px;
+  height: 20px;
+  border: 2px solid #f3f4f6;
+  border-top: 2px solid #6b7280;
+  border-radius: 50%;
+  animation: web-bookmark-spin 1s linear infinite;
+  margin: 0 auto 12px;
+}
+
+@keyframes web-bookmark-spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* Error State */
+.web-bookmark-error {
+  padding: 16px !important;
+  background: transparent !important;
+  border: 1px solid #fca5a5 !important;
+  border-radius: 4px !important;
+  color: #dc2626 !important;
+  text-align: center !important;
+}
+
+.web-bookmark-error-title {
+  font-weight: 500 !important;
+  margin-bottom: 8px !important;
+  font-size: 14px !important;
+}
+
+.web-bookmark-retry {
+  margin: 8px 4px 0 4px !important;
+  padding: 6px 12px !important;
+  background: transparent !important;
+  color: #dc2626 !important;
+  border: 1px solid #fca5a5 !important;
+  border-radius: 4px !important;
+  font-size: 12px !important;
+  cursor: pointer !important;
+  transition: all 0.2s ease !important;
+  display: inline-block !important;
+}
+
+.web-bookmark-retry:hover {
+  background: #fef2f2 !important;
+}
+
+.web-bookmark-retry[data-action="basic"] {
+  background: #3b82f6 !important;
+  color: white !important;
+  border-color: #3b82f6 !important;
+}
+
+.web-bookmark-retry[data-action="basic"]:hover {
+  background: #2563eb !important;
+}
+
+/* Settings Panel */
+.web-bookmark-settings {
+  position: absolute !important;
+  top: 8px !important;
+  right: 8px !important;
+  background: white !important;
+  border: 1px solid #e1e5e9 !important;
+  border-radius: 6px !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1) !important;
+  z-index: 1000 !important;
+  display: none !important;
+  min-width: 150px !important;
+}
+
+.web-bookmark-tool:hover .web-bookmark-settings {
+  display: block !important;
+}
+
+.web-bookmark-settings-item {
+  padding: 8px 12px !important;
+  font-size: 12px !important;
+  color: #666 !important;
+  cursor: pointer !important;
+  transition: all 0.2s ease !important;
+  border-bottom: 1px solid #f1f1f1 !important;
+  background: none !important;
+}
+
+.web-bookmark-settings-item::before,
+.web-bookmark-settings-item::after {
+  content: none !important;
+  display: none !important;
+}
+
+.web-bookmark-settings-item:last-child {
+  border-bottom: none !important;
+}
+
+.web-bookmark-settings-item:hover {
+  background: #f8faff !important;
+  color: #3b82f6 !important;
+}
+
+/* Responsive Design */
+@media (max-width: 640px) {
+  .web-bookmark-content {
+    height: auto !important;
+    flex-direction: column !important;
+    min-height: auto !important;
+  }
+
+  .web-bookmark-text {
+    min-height: auto !important;
+    padding: 16px !important;
+  }
+
+  .web-bookmark-image,
+  .web-bookmark-image-placeholder {
+    width: 100% !important;
+    height: 160px !important;
+    order: -1 !important;
+  }
+
+  .web-bookmark-input-wrapper {
+    flex-direction: column !important;
+    gap: 8px !important;
+  }
+
+  .web-bookmark-submit {
+    width: 100% !important;
+  }
+
+  .web-bookmark-input-form {
+    padding: 12px 0 !important;
+  }
+}
+
+@media (min-width: 641px) {
+  .web-bookmark-content {
+    display: flex !important;
+    flex-direction: row !important;
+    height: 120px !important;
+    min-height: 120px !important;
+  }
+
+  .web-bookmark-text {
+    flex: 1 !important;
+    min-height: 120px !important;
+  }
+
+  .web-bookmark-image,
+  .web-bookmark-image-placeholder {
+    width: 240px !important;
+    height: 120px !important;
+    order: 1 !important;
+  }
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+  .web-bookmark-tool {
+    background: #1f2937;
+    border-color: #374151;
+  }
+
+  .web-bookmark-title {
+    color: #f9fafb;
+  }
+
+  .web-bookmark-description {
+    color: #d1d5db;
+  }
+
+  .web-bookmark-meta {
+    color: #9ca3af;
+  }
+
+  .web-bookmark-input-title {
+    color: #9ca3af;
+  }
+
+  .web-bookmark-input {
+    background: #1f2937;
+    border-color: #374151;
+    color: #383838;
+  }
+
+  .web-bookmark-input:focus {
+    border-color: #9ca3af;
+  }
+
+  .web-bookmark-submit {
+    color: #9ca3af;
+    border-color: #374151;
+  }
+
+  .web-bookmark-submit:hover {
+    background: #374151;
+    color: #f9fafb;
+  }
+
+  .web-bookmark-settings {
+    background: #1f2937;
+    border-color: #374151;
+  }
+
+  .web-bookmark-settings-item {
+    color: #d1d5db;
+  }
+
+  .web-bookmark-settings-item:hover {
+    background: #374151;
+  }
+}
