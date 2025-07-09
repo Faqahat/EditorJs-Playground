@@ -29,55 +29,55 @@ class Checklist {
     this.config = config || {};
 
     this.data = {
-      items: data.items || [{ text: '', checked: false }],
-      style: data.style || 'default',
-      checkColor: data.checkColor || '#458262'
+      items: data.items || [{ text: "", checked: false }],
+      style: data.style || "default",
+      checkColor: data.checkColor || "#458262",
     };
 
     this.wrapper = null;
     this.settings = [
       {
-        name: 'default',
-        title: 'Forest Green',
-        icon: '✓',
-        checkColor: '#458262'
+        name: "default",
+        title: "Forest Green",
+        icon: "✓",
+        checkColor: "#458262",
       },
       {
-        name: 'primary',
-        title: 'Pastel Blue',
-        icon: '✓',
-        checkColor: '#93c5fd'
+        name: "primary",
+        title: "Pastel Blue",
+        icon: "✓",
+        checkColor: "#93c5fd",
       },
       {
-        name: 'accent',
-        title: 'Pastel Purple',
-        icon: '✓',
-        checkColor: '#c4b5fd'
+        name: "accent",
+        title: "Pastel Purple",
+        icon: "✓",
+        checkColor: "#c4b5fd",
       },
       {
-        name: 'warning',
-        title: 'Pastel Yellow',
-        icon: '✓',
-        checkColor: '#fcd34d'
+        name: "warning",
+        title: "Pastel Yellow",
+        icon: "✓",
+        checkColor: "#fcd34d",
       },
       {
-        name: 'danger',
-        title: 'Pastel Pink',
-        icon: '✓',
-        checkColor: '#fca5a5'
-      }
+        name: "danger",
+        title: "Pastel Pink",
+        icon: "✓",
+        checkColor: "#fca5a5",
+      },
     ];
   }
 
   render() {
-    this.wrapper = document.createElement('div');
-    this.wrapper.classList.add('checklist-tool');
-    this.wrapper.setAttribute('data-style', this.data.style);
-    this.wrapper.style.setProperty('--check-color', this.data.checkColor);
+    this.wrapper = document.createElement("div");
+    this.wrapper.classList.add("checklist-tool");
+    this.wrapper.setAttribute("data-style", this.data.style);
+    this.wrapper.style.setProperty("--check-color", this.data.checkColor);
 
     // Ensure we have at least one item
     if (this.data.items.length === 0) {
-      this.data.items.push({ text: '', checked: false });
+      this.data.items.push({ text: "", checked: false });
     }
 
     this.renderItems();
@@ -93,52 +93,54 @@ class Checklist {
   }
 
   createItemElement(item, index) {
-    const itemWrapper = document.createElement('div');
-    itemWrapper.classList.add('checklist-item');
+    const itemWrapper = document.createElement("div");
+    itemWrapper.classList.add("checklist-item");
     if (item.checked) {
-      itemWrapper.classList.add('checklist-item--checked');
+      itemWrapper.classList.add("checklist-item--checked");
     }
 
-    const checkbox = document.createElement('button');
-    checkbox.classList.add('checklist-checkbox');
-    checkbox.setAttribute('type', 'button');
-    checkbox.innerHTML = item.checked ? 
-      `<svg class="checklist-check-icon" width="28" height="28" viewBox="0 0 24 24" fill="none">
+    const checkbox = document.createElement("button");
+    checkbox.classList.add("checklist-checkbox");
+    checkbox.setAttribute("type", "button");
+    checkbox.innerHTML = item.checked
+      ? `<svg class="checklist-check-icon" width="28" height="28" viewBox="0 0 24 24" fill="none">
         <path d="M20 6L9 17l-5-5" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
-      </svg>` : '';
+      </svg>`
+      : "";
 
     if (!this.readOnly) {
-      checkbox.addEventListener('click', () => {
+      checkbox.addEventListener("click", () => {
         this.toggleItem(index);
       });
     }
 
-    const input = document.createElement('div');
-    input.classList.add('checklist-input');
+    const input = document.createElement("div");
+    input.classList.add("checklist-input");
     input.contentEditable = !this.readOnly;
-    input.innerHTML = item.text || '';
-    input.setAttribute('data-placeholder', 'Add a task...');
+    input.innerHTML = item.text || "";
+    input.setAttribute("data-placeholder", "Add a task...");
 
     if (!this.readOnly) {
-      input.addEventListener('keydown', (e) => {
+      input.addEventListener("keydown", (e) => {
         // Only prevent Enter and Backspace on empty content
-        if (e.key === 'Enter') {
+        if (e.key === "Enter") {
           e.preventDefault();
           e.stopPropagation();
           this.addNewItem(index + 1);
           return false;
-        } else if (e.key === 'Backspace') {
+        } else if (e.key === "Backspace") {
           // Check if content is truly empty (no text, only empty tags)
           const textContent = input.textContent.trim();
           const htmlContent = input.innerHTML.trim();
-          const cleanedContent = htmlContent.replace(/<[^>]*>/g, '').trim();
-          
-          const isEmpty = textContent === '' || 
-                         htmlContent === '' || 
-                         htmlContent === '<br>' ||
-                         htmlContent === '<div><br></div>' ||
-                         cleanedContent === '';
-          
+          const cleanedContent = htmlContent.replace(/<[^>]*>/g, "").trim();
+
+          const isEmpty =
+            textContent === "" ||
+            htmlContent === "" ||
+            htmlContent === "<br>" ||
+            htmlContent === "<div><br></div>" ||
+            cleanedContent === "";
+
           if (isEmpty && this.data.items.length > 1) {
             e.preventDefault();
             e.stopPropagation();
@@ -149,11 +151,11 @@ class Checklist {
         // Allow all other keys including formatting shortcuts
       });
 
-      input.addEventListener('input', () => {
+      input.addEventListener("input", () => {
         this.updateItemText(index, input.innerHTML);
       });
 
-      input.addEventListener('paste', (e) => {
+      input.addEventListener("paste", (e) => {
         // Allow default paste behavior to preserve formatting
       });
     }
@@ -176,13 +178,14 @@ class Checklist {
   }
 
   addNewItem(index) {
-    const newItem = { text: '', checked: false };
+    const newItem = { text: "", checked: false };
     this.data.items.splice(index, 0, newItem);
     this.updateUI();
-    
+
     // Focus the new item
     setTimeout(() => {
-      const newInput = this.wrapper.children[index].querySelector('.checklist-input');
+      const newInput =
+        this.wrapper.children[index].querySelector(".checklist-input");
       if (newInput) {
         newInput.focus();
       }
@@ -194,11 +197,12 @@ class Checklist {
     if (this.data.items.length > 1) {
       this.data.items.splice(index, 1);
       this.updateUI();
-      
+
       // Focus previous item or first item
       setTimeout(() => {
         const targetIndex = Math.max(0, index - 1);
-        const targetInput = this.wrapper.children[targetIndex]?.querySelector('.checklist-input');
+        const targetInput =
+          this.wrapper.children[targetIndex]?.querySelector(".checklist-input");
         if (targetInput) {
           targetInput.focus();
           // Move cursor to end
@@ -212,82 +216,87 @@ class Checklist {
       }, 0);
     } else {
       // If this is the last item, just clear its content instead of removing
-      this.data.items[index].text = '';
+      this.data.items[index].text = "";
       this.data.items[index].checked = false;
-      const input = this.wrapper.children[index]?.querySelector('.checklist-input');
+      const input =
+        this.wrapper.children[index]?.querySelector(".checklist-input");
       if (input) {
-        input.innerHTML = '';
+        input.innerHTML = "";
         input.focus();
       }
     }
   }
 
   updateUI() {
-    this.wrapper.innerHTML = '';
-    this.wrapper.style.setProperty('--check-color', this.data.checkColor);
-    
+    this.wrapper.innerHTML = "";
+    this.wrapper.style.setProperty("--check-color", this.data.checkColor);
+
     // Ensure we have at least one item, but only add empty item if all current items have content
     if (this.data.items.length === 0) {
-      this.data.items.push({ text: '', checked: false });
+      this.data.items.push({ text: "", checked: false });
     } else if (!this.readOnly) {
       // Only add empty item if the last item has content
       const lastItem = this.data.items[this.data.items.length - 1];
-      const lastItemHasContent = lastItem.text && 
-        (typeof lastItem.text === 'string' ? 
-          lastItem.text.replace(/<[^>]*>/g, '').trim() : 
-          String(lastItem.text).trim()) !== '';
-      
+      const lastItemHasContent =
+        lastItem.text &&
+        (typeof lastItem.text === "string"
+          ? lastItem.text.replace(/<[^>]*>/g, "").trim()
+          : String(lastItem.text).trim()) !== "";
+
       if (lastItemHasContent) {
-        this.data.items.push({ text: '', checked: false });
+        this.data.items.push({ text: "", checked: false });
       }
     }
-    
+
     this.renderItems();
   }
 
   save() {
     // Filter out empty items, checking both textContent and cleaned HTML
-    const items = this.data.items.filter(item => {
+    const items = this.data.items.filter((item) => {
       if (!item.text) return false;
-      const textContent = typeof item.text === 'string' ? 
-        item.text.replace(/<[^>]*>/g, '').trim() : 
-        String(item.text).trim();
-      return textContent !== '';
+      const textContent =
+        typeof item.text === "string"
+          ? item.text.replace(/<[^>]*>/g, "").trim()
+          : String(item.text).trim();
+      return textContent !== "";
     });
-    
+
     return {
-      items: items.length > 0 ? items : [{ text: '', checked: false }],
+      items: items.length > 0 ? items : [{ text: "", checked: false }],
       style: this.data.style,
-      checkColor: this.data.checkColor
+      checkColor: this.data.checkColor,
     };
   }
 
   renderSettings() {
-    const wrapper = document.createElement('div');
-    wrapper.classList.add('checklist-settings');
+    const wrapper = document.createElement("div");
+    wrapper.classList.add("checklist-settings");
 
-    this.settings.forEach(setting => {
-      const button = document.createElement('div');
-      button.classList.add('checklist-settings-button');
+    this.settings.forEach((setting) => {
+      const button = document.createElement("div");
+      button.classList.add("checklist-settings-button");
       button.innerHTML = `
         <div class="checklist-settings-icon" style="color: ${setting.checkColor};">${setting.icon}</div>
         <div class="checklist-settings-label">${setting.title}</div>
       `;
 
-      button.addEventListener('click', () => {
+      button.addEventListener("click", () => {
         this.data.style = setting.name;
         this.data.checkColor = setting.checkColor;
         this.updateUI();
-        
+
         // Update active state
-        wrapper.querySelectorAll('.checklist-settings-button').forEach(btn => {
-          btn.classList.remove('checklist-settings-button--active');
-        });
-        button.classList.add('checklist-settings-button--active');
+        wrapper
+          .querySelectorAll(".checklist-settings-button")
+          .forEach((btn) => {
+            btn.classList.remove("checklist-settings-button--active");
+          });
+        button.classList.add("checklist-settings-button--active");
       });
 
       if (setting.name === this.data.style) {
-        button.classList.add('checklist-settings-button--active');
+        button.classList.add("checklist-settings-button--active");
       }
 
       wrapper.appendChild(button);
@@ -305,43 +314,44 @@ class Checklist {
           u: {},
           s: {},
           a: {
-            href: true
+            href: true,
           },
           code: {},
           mark: {},
-          span: true
+          span: true,
         },
-        checked: {}
+        checked: {},
       },
       style: {},
-      checkColor: {}
+      checkColor: {},
     };
   }
 
   static get conversionConfig() {
     return {
-      export: 'text',
-      import: 'text'
+      export: "text",
+      import: "text",
     };
   }
 
   static get pasteConfig() {
     return {
-      tags: ['OL', 'UL', 'LI']
+      tags: ["OL", "UL", "LI"],
     };
   }
 
   onPaste(event) {
     // Handle paste events from Editor.js
     const data = event.detail.data;
-    
-    if (data.tagName === 'OL' || data.tagName === 'UL') {
-      const items = Array.from(data.querySelectorAll('li')).map(li => ({
+
+    if (data.tagName === "OL" || data.tagName === "UL") {
+      const items = Array.from(data.querySelectorAll("li")).map((li) => ({
         text: li.textContent.trim(),
-        checked: false
+        checked: false,
       }));
-      
-      this.data.items = items.length > 0 ? items : [{ text: '', checked: false }];
+
+      this.data.items =
+        items.length > 0 ? items : [{ text: "", checked: false }];
       this.updateUI();
     }
   }
@@ -350,12 +360,12 @@ class Checklist {
   split() {
     // Return a new checklist instance instead of allowing split
     return {
-      tool: 'checklist',
+      tool: "checklist",
       data: {
-        items: [{ text: '', checked: false }],
+        items: [{ text: "", checked: false }],
         style: this.data.style,
-        checkColor: this.data.checkColor
-      }
+        checkColor: this.data.checkColor,
+      },
     };
   }
 
@@ -366,12 +376,12 @@ class Checklist {
   }
 
   static get shortcut() {
-    return 'CMD+SHIFT+C';
+    return "CMD+SHIFT+C";
   }
 }
 
 // Make it available globally
-if (typeof module !== 'undefined' && module.exports) {
+if (typeof module !== "undefined" && module.exports) {
   module.exports = Checklist;
 } else {
   window.Checklist = Checklist;

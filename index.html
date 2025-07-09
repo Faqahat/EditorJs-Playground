@@ -29,6 +29,7 @@
       href="./plugins/cloudinary-image/cloudinary-image.css"
     />
     <link rel="stylesheet" href="./plugins/image/image.css" />
+    <link rel="stylesheet" href="./plugins/grid/grid.css" />
 
     <style>
       body {
@@ -73,6 +74,7 @@
     <script src="./plugins/checklist/checklist.js"></script>
     <script src="./plugins/cloudinary-image/cloudinary-image.js"></script>
     <script src="./plugins/image/image.js"></script>
+    <script src="./plugins/grid/grid.js"></script>
   </head>
 
   <body>
@@ -219,6 +221,26 @@
                 // "Authorization": "Bearer your-token"
               },
               shortcut: "CMD+SHIFT+P",
+            },
+          },
+
+          grid: {
+            class: GridTool,
+            config: {
+              shortcut: "CMD+SHIFT+G",
+              // Pass configurations for nested tools
+              cloudinaryConfig: {
+                cloudName: "dqjambruk", // Same as main cloudinary config
+                uploadPreset: "mylastdraft",
+                shortcut: "CMD+SHIFT+I",
+              },
+              imageConfig: {
+                uploadEndpoint: "https://your-api.com/upload", // Same as main image config
+                uploadField: "image",
+                additionalRequestData: {},
+                additionalRequestHeaders: {},
+                shortcut: "CMD+SHIFT+P",
+              },
             },
           },
 

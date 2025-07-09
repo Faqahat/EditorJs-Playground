@@ -69,11 +69,13 @@ image: {
 Your upload endpoint should return a JSON response with the image URL. The plugin supports several response formats:
 
 ### Simple URL String
+
 ```json
 "https://your-server.com/images/uploaded-image.jpg"
 ```
 
 ### Object with URL
+
 ```json
 {
   "url": "https://your-server.com/images/uploaded-image.jpg"
@@ -81,6 +83,7 @@ Your upload endpoint should return a JSON response with the image URL. The plugi
 ```
 
 ### Nested Data Structure
+
 ```json
 {
   "data": {
@@ -90,6 +93,7 @@ Your upload endpoint should return a JSON response with the image URL. The plugi
 ```
 
 ### Other Supported Formats
+
 ```json
 {
   "file": { "url": "..." },
@@ -101,6 +105,7 @@ Your upload endpoint should return a JSON response with the image URL. The plugi
 ## Usage
 
 ### Upload Method
+
 1. Click the "Image" tool in the Editor.js toolbar
 2. Make sure the "Upload" tab is selected
 3. Click the upload area or drag and drop an image
@@ -109,6 +114,7 @@ Your upload endpoint should return a JSON response with the image URL. The plugi
 6. Use the settings panel to apply styling options
 
 ### URL Method
+
 1. Click the "Image" tool in the Editor.js toolbar
 2. Click the "URL" tab
 3. Paste or type an image URL
@@ -118,6 +124,7 @@ Your upload endpoint should return a JSON response with the image URL. The plugi
 ### Styling Options
 
 Use the settings panel (gear icon) to apply:
+
 - **Border**: Adds a decorative border around the image
 - **Background**: Adds a subtle background behind the image
 - **Stretch**: Makes the image fill the full width
@@ -147,29 +154,29 @@ The plugin saves data in the following format:
 Here's a simple Node.js/Express example for the upload endpoint:
 
 ```javascript
-const express = require('express');
-const multer = require('multer');
-const path = require('path');
+const express = require("express");
+const multer = require("multer");
+const path = require("path");
 
 const app = express();
 
 // Configure multer for file uploads
 const storage = multer.diskStorage({
-  destination: 'uploads/',
+  destination: "uploads/",
   filename: (req, file, cb) => {
-    const uniqueName = Date.now() + '-' + Math.round(Math.random() * 1E9);
+    const uniqueName = Date.now() + "-" + Math.round(Math.random() * 1e9);
     cb(null, uniqueName + path.extname(file.originalname));
-  }
+  },
 });
 
 const upload = multer({ storage });
 
 // Upload endpoint
-app.post('/upload', upload.single('image'), (req, res) => {
+app.post("/upload", upload.single("image"), (req, res) => {
   if (!req.file) {
-    return res.status(400).json({ error: 'No file uploaded' });
+    return res.status(400).json({ error: "No file uploaded" });
   }
-  
+
   const imageUrl = `https://your-server.com/uploads/${req.file.filename}`;
   res.json({ url: imageUrl });
 });

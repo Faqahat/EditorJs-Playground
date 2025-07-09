@@ -9,10 +9,10 @@ class SimpleImage {
 
   static get pasteConfig() {
     return {
-      tags: ['IMG'],
+      tags: ["IMG"],
       files: {
-        mimeTypes: ['image/*']
-      }
+        mimeTypes: ["image/*"],
+      },
     };
   }
 
@@ -23,28 +23,29 @@ class SimpleImage {
         <path d="M15.8 6.8L14.6 5.7C14.2 5.3 13.5 5.3 13.1 5.7L5.8 13H3C2.4 13 2 12.6 2 12V3C2 2.4 2.4 2 3 2H14C14.6 2 15 2.4 15 3V6.8H15.8Z"/>
         <circle cx="6.8" cy="5.8" r="1.8"/>
         <path d="M16 11L13 8L10 11H16Z"/>
-      </svg>`
+      </svg>`,
     };
   }
 
   constructor({ data, config, api }) {
     this.api = api;
     this.config = config || {};
-    
+
     // Configuration
-    this.uploadEndpoint = this.config.uploadEndpoint || '';
-    this.uploadField = this.config.uploadField || 'image';
+    this.uploadEndpoint = this.config.uploadEndpoint || "";
+    this.uploadField = this.config.uploadField || "image";
     this.additionalRequestData = this.config.additionalRequestData || {};
     this.additionalRequestHeaders = this.config.additionalRequestHeaders || {};
-    
+
     this.data = {
-      url: data.url || '',
-      caption: data.caption || '',
+      url: data.url || "",
+      caption: data.caption || "",
       withBorder: data.withBorder !== undefined ? data.withBorder : false,
-      withBackground: data.withBackground !== undefined ? data.withBackground : false,
+      withBackground:
+        data.withBackground !== undefined ? data.withBackground : false,
       stretched: data.stretched !== undefined ? data.stretched : false,
-      alignment: data.alignment || 'center',
-      customWidth: data.customWidth || null // User-defined width from resizing
+      alignment: data.alignment || "center",
+      customWidth: data.customWidth || null, // User-defined width from resizing
     };
 
     this.wrapper = null;
@@ -54,8 +55,8 @@ class SimpleImage {
   }
 
   render() {
-    this.wrapper = document.createElement('div');
-    this.wrapper.classList.add('simple-image-tool');
+    this.wrapper = document.createElement("div");
+    this.wrapper.classList.add("simple-image-tool");
 
     if (this.data.url) {
       this.showImage();
@@ -67,8 +68,8 @@ class SimpleImage {
   }
 
   showUploader() {
-    this.uploader = document.createElement('div');
-    this.uploader.classList.add('simple-image-uploader');
+    this.uploader = document.createElement("div");
+    this.uploader.classList.add("simple-image-uploader");
     this.uploader.innerHTML = `
       <div class="simple-image-upload-tabs">
         <button class="simple-image-tab active" data-tab="upload">Upload</button>
@@ -116,36 +117,38 @@ class SimpleImage {
 
   setupUploaderEvents() {
     // Tab switching
-    const tabs = this.uploader.querySelectorAll('.simple-image-tab');
-    const tabContents = this.uploader.querySelectorAll('.simple-image-tab-content');
+    const tabs = this.uploader.querySelectorAll(".simple-image-tab");
+    const tabContents = this.uploader.querySelectorAll(
+      ".simple-image-tab-content"
+    );
 
-    tabs.forEach(tab => {
-      tab.addEventListener('click', () => {
+    tabs.forEach((tab) => {
+      tab.addEventListener("click", () => {
         const targetTab = tab.dataset.tab;
-        
+
         // Update tab states
-        tabs.forEach(t => t.classList.remove('active'));
-        tab.classList.add('active');
-        
+        tabs.forEach((t) => t.classList.remove("active"));
+        tab.classList.add("active");
+
         // Update content states
-        tabContents.forEach(content => {
-          content.classList.remove('active');
+        tabContents.forEach((content) => {
+          content.classList.remove("active");
           if (content.dataset.content === targetTab) {
-            content.classList.add('active');
+            content.classList.add("active");
           }
         });
       });
     });
 
     // File upload events
-    const fileInput = this.uploader.querySelector('.simple-image-file-input');
-    const uploadArea = this.uploader.querySelector('.simple-image-upload-area');
+    const fileInput = this.uploader.querySelector(".simple-image-file-input");
+    const uploadArea = this.uploader.querySelector(".simple-image-upload-area");
 
-    uploadArea.addEventListener('click', () => {
+    uploadArea.addEventListener("click", () => {
       fileInput.click();
     });
 
-    fileInput.addEventListener('change', (e) => {
+    fileInput.addEventListener("change", (e) => {
       const file = e.target.files[0];
       if (file) {
         this.uploadFile(file);
@@ -153,38 +156,38 @@ class SimpleImage {
     });
 
     // Drag and drop support
-    uploadArea.addEventListener('dragover', (e) => {
+    uploadArea.addEventListener("dragover", (e) => {
       e.preventDefault();
-      uploadArea.classList.add('dragover');
+      uploadArea.classList.add("dragover");
     });
 
-    uploadArea.addEventListener('dragleave', () => {
-      uploadArea.classList.remove('dragover');
+    uploadArea.addEventListener("dragleave", () => {
+      uploadArea.classList.remove("dragover");
     });
 
-    uploadArea.addEventListener('drop', (e) => {
+    uploadArea.addEventListener("drop", (e) => {
       e.preventDefault();
-      uploadArea.classList.remove('dragover');
-      
+      uploadArea.classList.remove("dragover");
+
       const files = e.dataTransfer.files;
-      if (files.length > 0 && files[0].type.startsWith('image/')) {
+      if (files.length > 0 && files[0].type.startsWith("image/")) {
         this.uploadFile(files[0]);
       }
     });
 
     // URL input events
-    const urlInput = this.uploader.querySelector('.simple-image-url-input');
-    const urlButton = this.uploader.querySelector('.simple-image-url-button');
+    const urlInput = this.uploader.querySelector(".simple-image-url-input");
+    const urlButton = this.uploader.querySelector(".simple-image-url-button");
 
-    urlButton.addEventListener('click', () => {
+    urlButton.addEventListener("click", () => {
       const url = urlInput.value.trim();
       if (url) {
         this.addImageFromUrl(url);
       }
     });
 
-    urlInput.addEventListener('keydown', (e) => {
-      if (e.key === 'Enter') {
+    urlInput.addEventListener("keydown", (e) => {
+      if (e.key === "Enter") {
         e.preventDefault();
         const url = urlInput.value.trim();
         if (url) {
@@ -193,7 +196,7 @@ class SimpleImage {
       }
     });
 
-    urlInput.addEventListener('paste', (e) => {
+    urlInput.addEventListener("paste", (e) => {
       setTimeout(() => {
         const url = urlInput.value.trim();
         if (url && this.isValidImageUrl(url)) {
@@ -205,32 +208,38 @@ class SimpleImage {
 
   async uploadFile(file) {
     if (!this.uploadEndpoint) {
-      this.showError('Upload endpoint not configured.');
+      this.showError("Upload endpoint not configured.");
       return;
     }
 
-    const progressContainer = this.uploader.querySelector('.simple-image-upload-progress');
-    const uploadArea = this.uploader.querySelector('.simple-image-upload-area');
-    const progressFill = this.uploader.querySelector('.simple-image-progress-fill');
-    const progressText = this.uploader.querySelector('.simple-image-progress-text');
+    const progressContainer = this.uploader.querySelector(
+      ".simple-image-upload-progress"
+    );
+    const uploadArea = this.uploader.querySelector(".simple-image-upload-area");
+    const progressFill = this.uploader.querySelector(
+      ".simple-image-progress-fill"
+    );
+    const progressText = this.uploader.querySelector(
+      ".simple-image-progress-text"
+    );
 
     // Show progress
-    uploadArea.style.display = 'none';
-    progressContainer.style.display = 'block';
+    uploadArea.style.display = "none";
+    progressContainer.style.display = "block";
 
     try {
       const formData = new FormData();
       formData.append(this.uploadField, file);
-      
+
       // Add additional request data
-      Object.keys(this.additionalRequestData).forEach(key => {
+      Object.keys(this.additionalRequestData).forEach((key) => {
         formData.append(key, this.additionalRequestData[key]);
       });
 
       const xhr = new XMLHttpRequest();
-      
+
       // Track upload progress
-      xhr.upload.addEventListener('progress', (e) => {
+      xhr.upload.addEventListener("progress", (e) => {
         if (e.lengthComputable) {
           const percentage = Math.round((e.loaded / e.total) * 100);
           progressFill.style.width = `${percentage}%`;
@@ -239,93 +248,94 @@ class SimpleImage {
       });
 
       // Handle response
-      xhr.addEventListener('load', () => {
+      xhr.addEventListener("load", () => {
         if (xhr.status === 200) {
           try {
             const response = JSON.parse(xhr.responseText);
             const imageUrl = this.extractImageUrl(response);
-            
+
             if (imageUrl) {
               this.data.url = imageUrl;
               this.showImage();
             } else {
-              this.showError('Invalid response format from server.');
+              this.showError("Invalid response format from server.");
             }
           } catch (error) {
-            this.showError('Invalid JSON response from server.');
+            this.showError("Invalid JSON response from server.");
           }
         } else {
           this.showError(`Upload failed with status: ${xhr.status}`);
         }
       });
 
-      xhr.addEventListener('error', () => {
-        this.showError('Upload failed. Please check your connection and try again.');
+      xhr.addEventListener("error", () => {
+        this.showError(
+          "Upload failed. Please check your connection and try again."
+        );
       });
 
       // Start upload
-      xhr.open('POST', this.uploadEndpoint);
-      
+      xhr.open("POST", this.uploadEndpoint);
+
       // Add additional headers
-      Object.keys(this.additionalRequestHeaders).forEach(key => {
+      Object.keys(this.additionalRequestHeaders).forEach((key) => {
         xhr.setRequestHeader(key, this.additionalRequestHeaders[key]);
       });
-      
-      xhr.send(formData);
 
+      xhr.send(formData);
     } catch (error) {
-      console.error('Upload error:', error);
-      this.showError('Upload failed. Please try again.');
+      console.error("Upload error:", error);
+      this.showError("Upload failed. Please try again.");
     }
   }
 
   extractImageUrl(response) {
     // Try different common response formats
-    if (typeof response === 'string') {
+    if (typeof response === "string") {
       return response;
     }
-    
+
     if (response.url) {
       return response.url;
     }
-    
+
     if (response.data && response.data.url) {
       return response.data.url;
     }
-    
+
     if (response.file && response.file.url) {
       return response.file.url;
     }
-    
+
     if (response.image && response.image.url) {
       return response.image.url;
     }
-    
+
     if (response.link) {
       return response.link;
     }
-    
+
     return null;
   }
 
   addImageFromUrl(url) {
     if (!this.isValidImageUrl(url)) {
-      this.showError('Please enter a valid image URL.');
+      this.showError("Please enter a valid image URL.");
       return;
     }
 
     // Test if image loads
     const testImage = new Image();
-    
+
     testImage.onload = () => {
       this.data.url = url;
       this.showImage();
     };
-    
+
     testImage.onerror = () => {
-      this.showError('Failed to load image from URL.');
+      this.showError("Failed to load image from URL.");
     };
-    
+
     testImage.src = url;
   }
 
@@ -339,15 +349,19 @@ class SimpleImage {
   }
 
   showError(message) {
-    const progressContainer = this.uploader?.querySelector('.simple-image-upload-progress');
-    const uploadArea = this.uploader?.querySelector('.simple-image-upload-area');
-    
-    if (progressContainer) progressContainer.style.display = 'none';
-    if (uploadArea) uploadArea.style.display = 'block';
+    const progressContainer = this.uploader?.querySelector(
+      ".simple-image-upload-progress"
+    );
+    const uploadArea = this.uploader?.querySelector(
+      ".simple-image-upload-area"
+    );
+
+    if (progressContainer) progressContainer.style.display = "none";
+    if (uploadArea) uploadArea.style.display = "block";
 
     // Show error message
-    const errorDiv = document.createElement('div');
-    errorDiv.classList.add('simple-image-error');
+    const errorDiv = document.createElement("div");
+    errorDiv.classList.add("simple-image-error");
     errorDiv.textContent = message;
     this.wrapper.appendChild(errorDiv);
 
@@ -360,54 +374,54 @@ class SimpleImage {
   }
 
   showImage() {
-    this.wrapper.innerHTML = '';
-    
-    this.imageHolder = document.createElement('div');
-    this.imageHolder.classList.add('simple-image-holder');
+    this.wrapper.innerHTML = "";
+
+    this.imageHolder = document.createElement("div");
+    this.imageHolder.classList.add("simple-image-holder");
 
     // Apply styling classes
     if (this.data.withBorder) {
-      this.imageHolder.classList.add('simple-image--with-border');
+      this.imageHolder.classList.add("simple-image--with-border");
     }
     if (this.data.withBackground) {
-      this.imageHolder.classList.add('simple-image--with-background');
+      this.imageHolder.classList.add("simple-image--with-background");
     }
     if (this.data.stretched) {
-      this.imageHolder.classList.add('simple-image--stretched');
+      this.imageHolder.classList.add("simple-image--stretched");
     }
-    
+
     // Apply alignment classes
     this.imageHolder.classList.add(`simple-image--${this.data.alignment}`);
 
     // Create image container for resize functionality
-    const imageContainer = document.createElement('div');
-    imageContainer.classList.add('simple-image-container');
+    const imageContainer = document.createElement("div");
+    imageContainer.classList.add("simple-image-container");
 
-    const image = document.createElement('img');
+    const image = document.createElement("img");
     image.src = this.data.url;
-    image.classList.add('simple-image');
+    image.classList.add("simple-image");
 
     // Apply custom width if set
     if (this.data.customWidth) {
-      imageContainer.style.width = this.data.customWidth + 'px';
-      imageContainer.style.maxWidth = '100%';
+      imageContainer.style.width = this.data.customWidth + "px";
+      imageContainer.style.maxWidth = "100%";
     }
-    
+
     // Add loading and error handling
-    image.addEventListener('load', () => {
-      image.classList.add('simple-image--loaded');
+    image.addEventListener("load", () => {
+      image.classList.add("simple-image--loaded");
     });
 
-    image.addEventListener('error', () => {
-      this.showError('Failed to load image.');
+    image.addEventListener("error", () => {
+      this.showError("Failed to load image.");
     });
 
     // Create options overlay (like Cloudinary plugin)
-    const optionsOverlay = document.createElement('div');
-    optionsOverlay.classList.add('simple-image-options-overlay');
+    const optionsOverlay = document.createElement("div");
+    optionsOverlay.classList.add("simple-image-options-overlay");
 
-    const optionsButton = document.createElement('button');
-    optionsButton.classList.add('simple-image-options-button');
+    const optionsButton = document.createElement("button");
+    optionsButton.classList.add("simple-image-options-button");
     optionsButton.innerHTML = `
       <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
         <circle cx="8" cy="3" r="1.5"/>
@@ -417,8 +431,8 @@ class SimpleImage {
     `;
 
     // Create resize handle (like Cloudinary plugin)
-    const resizeHandle = document.createElement('div');
-    resizeHandle.classList.add('simple-image-resize-handle');
+    const resizeHandle = document.createElement("div");
+    resizeHandle.classList.add("simple-image-resize-handle");
     resizeHandle.innerHTML = `
       <svg width="12" height="12" viewBox="0 0 16 16" fill="currentColor">
         <path d="M16 0v6l-2-2-4 4-2-2 4-4-2-2h6zM6 10l-4 4 2 2H0v-6l2 2 4-4 2 2z"/>
@@ -437,19 +451,19 @@ class SimpleImage {
     // Add options functionality
     this.addOptionsHandler(optionsButton);
 
-    const caption = document.createElement('div');
-    caption.classList.add('simple-image-caption');
+    const caption = document.createElement("div");
+    caption.classList.add("simple-image-caption");
     caption.contentEditable = true;
     caption.innerHTML = this.data.caption;
-    caption.setAttribute('data-placeholder', 'Add a caption...');
+    caption.setAttribute("data-placeholder", "Add a caption...");
 
-    caption.addEventListener('input', () => {
+    caption.addEventListener("input", () => {
       this.data.caption = caption.innerHTML;
     });
 
     // Prevent Enter key from creating new blocks
-    caption.addEventListener('keydown', (e) => {
-      if (e.key === 'Enter') {
+    caption.addEventListener("keydown", (e) => {
+      if (e.key === "Enter") {
         e.preventDefault();
       }
     });
@@ -467,7 +481,7 @@ class SimpleImage {
       withBackground: this.data.withBackground,
       stretched: this.data.stretched,
       alignment: this.data.alignment,
-      customWidth: this.data.customWidth
+      customWidth: this.data.customWidth,
     };
   }
 
@@ -478,8 +492,8 @@ class SimpleImage {
 
   onPaste(event) {
     const data = event.detail.data;
-    
-    if (data.tagName === 'IMG') {
+
+    if (data.tagName === "IMG") {
       const url = data.src;
       if (url) {
         this.data.url = url;
@@ -497,34 +511,34 @@ class SimpleImage {
         u: {},
         s: {},
         a: {
-          href: true
+          href: true,
         },
         code: {},
-        mark: {}
+        mark: {},
       },
       withBorder: {},
       withBackground: {},
       stretched: {},
       alignment: {},
-      customWidth: {}
+      customWidth: {},
     };
   }
 
   static get shortcut() {
-    return 'CMD+SHIFT+P';
+    return "CMD+SHIFT+P";
   }
 
   addResizeHandlers(container, handle) {
     let isResizing = false;
     let startX, startWidth;
 
-    handle.addEventListener('mousedown', (e) => {
+    handle.addEventListener("mousedown", (e) => {
       isResizing = true;
       startX = e.clientX;
       startWidth = parseInt(window.getComputedStyle(container).width, 10);
 
-      document.addEventListener('mousemove', handleMouseMove);
-      document.addEventListener('mouseup', handleMouseUp);
+      document.addEventListener("mousemove", handleMouseMove);
+      document.addEventListener("mouseup", handleMouseUp);
 
       e.preventDefault();
     });
@@ -538,20 +552,20 @@ class SimpleImage {
       const maxWidth = this.wrapper.offsetWidth;
 
       if (newWidth >= minWidth && newWidth <= maxWidth) {
-        container.style.width = newWidth + 'px';
+        container.style.width = newWidth + "px";
         this.data.customWidth = newWidth;
       }
     };
 
     const handleMouseUp = () => {
       isResizing = false;
-      document.removeEventListener('mousemove', handleMouseMove);
-      document.removeEventListener('mouseup', handleMouseUp);
+      document.removeEventListener("mousemove", handleMouseMove);
+      document.removeEventListener("mouseup", handleMouseUp);
     };
   }
 
   addOptionsHandler(button) {
-    button.addEventListener('click', (e) => {
+    button.addEventListener("click", (e) => {
       e.stopPropagation();
       this.showOptionsMenu(button);
     });
@@ -559,27 +573,27 @@ class SimpleImage {
 
   showOptionsMenu(button) {
     // Remove existing menu if any
-    const existingMenu = document.querySelector('.simple-image-options-menu');
+    const existingMenu = document.querySelector(".simple-image-options-menu");
     if (existingMenu) {
       existingMenu.remove();
       return;
     }
 
-    const menu = document.createElement('div');
-    menu.classList.add('simple-image-options-menu');
+    const menu = document.createElement("div");
+    menu.classList.add("simple-image-options-menu");
 
     // Alignment options
     const alignmentOptions = [
-      { name: 'left', icon: '⬅️', label: 'Left' },
-      { name: 'center', icon: '⬆️', label: 'Center' },
-      { name: 'right', icon: '➡️', label: 'Right' }
+      { name: "left", icon: "⬅️", label: "Left" },
+      { name: "center", icon: "⬆️", label: "Center" },
+      { name: "right", icon: "➡️", label: "Right" },
     ];
 
-    alignmentOptions.forEach(option => {
-      const optionButton = document.createElement('button');
-      optionButton.classList.add('simple-image-option-item');
+    alignmentOptions.forEach((option) => {
+      const optionButton = document.createElement("button");
+      optionButton.classList.add("simple-image-option-item");
       if (this.data.alignment === option.name) {
-        optionButton.classList.add('active');
+        optionButton.classList.add("active");
       }
 
       optionButton.innerHTML = `
@@ -587,7 +601,7 @@ class SimpleImage {
         <span class="option-label">${option.label}</span>
       `;
 
-      optionButton.addEventListener('click', () => {
+      optionButton.addEventListener("click", () => {
         this.data.alignment = option.name;
         this.updateAlignment();
         menu.remove();
@@ -596,31 +610,11 @@ class SimpleImage {
       menu.appendChild(optionButton);
     });
 
-    // Background toggle
-    const backgroundButton = document.createElement('button');
-    backgroundButton.classList.add('simple-image-option-item');
-    if (this.data.withBackground) {
-      backgroundButton.classList.add('active');
-    }
-
-    backgroundButton.innerHTML = `
-      <span class="option-icon">🎨</span>
-      <span class="option-label">Background</span>
-    `;
-
-    backgroundButton.addEventListener('click', () => {
-      this.data.withBackground = !this.data.withBackground;
-      this.updateBackground();
-      menu.remove();
-    });
-
-    menu.appendChild(backgroundButton);
-
     // Border toggle
-    const borderButton = document.createElement('button');
-    borderButton.classList.add('simple-image-option-item');
+    const borderButton = document.createElement("button");
+    borderButton.classList.add("simple-image-option-item");
     if (this.data.withBorder) {
-      borderButton.classList.add('active');
+      borderButton.classList.add("active");
     }
 
     borderButton.innerHTML = `
@@ -628,7 +622,7 @@ class SimpleImage {
       <span class="option-label">Border</span>
     `;
 
-    borderButton.addEventListener('click', () => {
+    borderButton.addEventListener("click", () => {
       this.data.withBorder = !this.data.withBorder;
       this.updateBorder();
       menu.remove();
@@ -637,10 +631,10 @@ class SimpleImage {
     menu.appendChild(borderButton);
 
     // Stretch toggle
-    const stretchButton = document.createElement('button');
-    stretchButton.classList.add('simple-image-option-item');
+    const stretchButton = document.createElement("button");
+    stretchButton.classList.add("simple-image-option-item");
     if (this.data.stretched) {
-      stretchButton.classList.add('active');
+      stretchButton.classList.add("active");
     }
 
     stretchButton.innerHTML = `
@@ -648,7 +642,7 @@ class SimpleImage {
       <span class="option-label">Stretch</span>
     `;
 
-    stretchButton.addEventListener('click', () => {
+    stretchButton.addEventListener("click", () => {
       this.data.stretched = !this.data.stretched;
       this.updateStretch();
       menu.remove();
@@ -658,10 +652,10 @@ class SimpleImage {
 
     // Position menu near button
     const rect = button.getBoundingClientRect();
-    menu.style.position = 'fixed';
-    menu.style.top = rect.bottom + 5 + 'px';
-    menu.style.left = rect.left - 50 + 'px';
-    menu.style.zIndex = '1000';
+    menu.style.position = "fixed";
+    menu.style.top = rect.bottom + 5 + "px";
+    menu.style.left = rect.left - 50 + "px";
+    menu.style.zIndex = "1000";
 
     document.body.appendChild(menu);
 
@@ -670,42 +664,42 @@ class SimpleImage {
       const closeMenu = (e) => {
         if (!menu.contains(e.target)) {
           menu.remove();
-          document.removeEventListener('click', closeMenu);
+          document.removeEventListener("click", closeMenu);
         }
       };
-      document.addEventListener('click', closeMenu);
+      document.addEventListener("click", closeMenu);
     }, 0);
   }
 
   updateAlignment() {
     this.imageHolder.className = this.imageHolder.className.replace(
       /simple-image--(?:left|center|right)\b/g,
-      ''
+      ""
     );
     this.imageHolder.classList.add(`simple-image--${this.data.alignment}`);
   }
 
   updateBackground() {
     if (this.data.withBackground) {
-      this.imageHolder.classList.add('simple-image--with-background');
+      this.imageHolder.classList.add("simple-image--with-background");
     } else {
-      this.imageHolder.classList.remove('simple-image--with-background');
+      this.imageHolder.classList.remove("simple-image--with-background");
     }
   }
 
   updateBorder() {
     if (this.data.withBorder) {
-      this.imageHolder.classList.add('simple-image--with-border');
+      this.imageHolder.classList.add("simple-image--with-border");
     } else {
-      this.imageHolder.classList.remove('simple-image--with-border');
+      this.imageHolder.classList.remove("simple-image--with-border");
     }
   }
 
   updateStretch() {
     if (this.data.stretched) {
-      this.imageHolder.classList.add('simple-image--stretched');
+      this.imageHolder.classList.add("simple-image--stretched");
     } else {
-      this.imageHolder.classList.remove('simple-image--stretched');
+      this.imageHolder.classList.remove("simple-image--stretched");
     }
   }
 
@@ -713,7 +707,7 @@ class SimpleImage {
 }
 
 // Make it available globally
-if (typeof module !== 'undefined' && module.exports) {
+if (typeof module !== "undefined" && module.exports) {
   module.exports = SimpleImage;
 } else {
   window.SimpleImage = SimpleImage;

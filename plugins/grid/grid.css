@@ -1,0 +1,193 @@
+/* Grid Tool Styles - Minimal Design */
+.grid-tool {
+  margin: 16px 0;
+}
+
+/* Grid Container */
+.grid-container {
+  display: grid;
+  gap: 16px;
+  min-height: 100px;
+}
+
+/* Column Layouts */
+.grid-columns-1 {
+  grid-template-columns: 1fr;
+}
+
+.grid-columns-2 {
+  grid-template-columns: 1fr 1fr;
+}
+
+.grid-columns-3 {
+  grid-template-columns: 1fr 1fr 1fr;
+}
+
+.grid-columns-4 {
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+}
+
+/* Grid Items */
+.grid-item {
+  min-height: 60px;
+  position: relative;
+}
+
+/* Grid Item Content */
+.grid-item-content {
+  min-height: 60px;
+}
+
+.grid-item-content .ce-toolbar {
+  margin-left: 0;
+}
+
+.grid-item-content .ce-block {
+  margin: 8px 0;
+}
+
+.grid-item-content .ce-block:first-child {
+  margin-top: 0;
+}
+
+.grid-item-content .ce-block:last-child {
+  margin-bottom: 0;
+}
+
+/* Fallback Editor */
+.grid-fallback-editor {
+  width: 100%;
+  border: 1px solid #e5e7eb;
+  border-radius: 4px;
+  outline: none;
+  resize: none;
+  font-family: inherit;
+  font-size: 14px;
+  line-height: 1.5;
+  color: #374151;
+  background: white;
+  padding: 8px;
+  min-height: 60px;
+}
+
+.grid-fallback-editor::placeholder {
+  color: #9ca3af;
+}
+
+.grid-fallback-editor:focus {
+  border-color: #3b82f6;
+}
+
+/* Block Tunes Settings */
+.grid-settings {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.grid-settings-button {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  border: 1px solid #e5e7eb;
+  background: white;
+  cursor: pointer;
+  border-radius: 6px;
+  transition: all 0.2s ease;
+  font-size: 14px;
+  color: #374151;
+}
+
+.grid-settings-button:hover {
+  background: #f3f4f6;
+  border-color: #3b82f6;
+}
+
+.grid-settings-button--active {
+  background: #eff6ff;
+  border-color: #3b82f6;
+  color: #3b82f6;
+}
+
+.grid-settings-icon {
+  color: inherit;
+  display: flex;
+  align-items: center;
+}
+
+.grid-settings-label {
+  font-weight: 500;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .grid-columns-3,
+  .grid-columns-4 {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 480px) {
+  .grid-columns-2,
+  .grid-columns-3,
+  .grid-columns-4 {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Dark Mode Support */
+@media (prefers-color-scheme: dark) {
+  .grid-fallback-editor {
+    border-color: #4b5563;
+    background: #374151;
+    color: #d1d5db;
+  }
+
+  .grid-fallback-editor:focus {
+    border-color: #3b82f6;
+  }
+
+  .grid-fallback-editor::placeholder {
+    color: #6b7280;
+  }
+
+  .grid-settings-button {
+    border-color: #4b5563;
+    background: #374151;
+    color: #d1d5db;
+  }
+
+  .grid-settings-button:hover {
+    background: #4b5563;
+    border-color: #3b82f6;
+  }
+
+  .grid-settings-button--active {
+    background: #1e40af;
+    border-color: #3b82f6;
+    color: #93c5fd;
+  }
+}
+
+/* Smooth transitions */
+.grid-container {
+  transition: all 0.3s ease;
+}
+
+/* Focus styles for accessibility */
+.grid-settings-button:focus {
+  outline: 2px solid #3b82f6;
+  outline-offset: 2px;
+}
+
+/* Print styles */
+@media print {
+  .grid-tool {
+    background: white;
+  }
+
+  .grid-item {
+    background: white;
+  }
+}
