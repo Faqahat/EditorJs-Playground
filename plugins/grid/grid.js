@@ -1,5 +1,9 @@
 /**
- * Grid Tool for Editor.js
+ * Grid Tool for Edi    this.data = {
+      columns: data.columns || 2,
+      items: data.items || [],
+      columnWidths: data.columnWidths || [] // Store custom column widths
+    };js
  * Creates clean grid layouts with nested Editor.js blocks
  */
 class GridTool {
@@ -25,6 +29,7 @@ class GridTool {
     this.data = {
       columns: data.columns || 2,
       items: data.items || [],
+      columnWidths: data.columnWidths || [], // Store custom column widths
     };
 
     // Initialize items if empty
@@ -54,8 +59,26 @@ class GridTool {
     this.gridContainer.classList.add("grid-container");
     this.gridContainer.classList.add(`grid-columns-${this.data.columns}`);
 
+    // Apply custom column widths if available
+    this.applyColumnWidths();
+
     this.createGridItems();
     this.wrapper.appendChild(this.gridContainer);
+  }
+
+  applyColumnWidths() {
+    if (
+      this.data.columnWidths &&
+      this.data.columnWidths.length === this.data.columns
+    ) {
+      const widthsString = this.data.columnWidths
+        .map((width) => `${width}fr`)
+        .join(" ");
+      this.gridContainer.style.gridTemplateColumns = widthsString;
+    } else {
+      // Use default equal columns
+      this.gridContainer.style.gridTemplateColumns = "";
+    }
   }
 
   createGridItems() {
@@ -74,6 +97,55 @@ class GridTool {
 
       // Create Editor.js instance for this grid item
       this.createItemEditor(i, itemContent);
+    }
+
+    // Add resize handles after all grid items are created
+    this.createResizeHandles();
+  }
+
+  createResizeHandles() {
+    // Remove existing resize handles
+    const existingHandles = this.gridContainer.querySelectorAll(
+      ".grid-resize-handle"
+    );
+    existingHandles.forEach((handle) => handle.remove());
+
+    // Add resize handles between columns (except after the last column)
+    for (let i = 0; i < this.data.columns - 1; i++) {
+      const resizeHandle = document.createElement("div");
+      resizeHandle.classList.add("grid-resize-handle");
+      resizeHandle.dataset.columnIndex = i;
+      resizeHandle.innerHTML = `
+        <div class="grid-resize-line"></div>
+      `;
+
+      this.gridContainer.appendChild(resizeHandle);
+      this.addResizeHandlers(resizeHandle, i);
+      this.positionResizeHandle(resizeHandle, i);
+    }
+  }
+
+  positionResizeHandle(handle, columnIndex) {
+    // Calculate the position based on current column widths
+    if (
+      this.data.columnWidths &&
+      this.data.columnWidths.length === this.data.columns
+    ) {
+      const totalWidth = this.data.columnWidths.reduce(
+        (sum, width) => sum + width,
+        0
+      );
+      let leftPosition = 0;
+
+      for (let i = 0; i <= columnIndex; i++) {
+        leftPosition += this.data.columnWidths[i] / totalWidth;
+      }
+
+      handle.style.left = `calc(${leftPosition * 100}% - 4px)`;
+    } else {
+      // Default positioning when no custom widths are set
+      const position = ((columnIndex + 1) / this.data.columns) * 100;
+      handle.style.left = `calc(${position}% - 4px)`;
     }
   }
 
@@ -238,6 +310,9 @@ class GridTool {
       }
     });
 
+    // Reset column widths when changing column count
+    this.data.columnWidths = [];
+
     this.createGrid();
   }
 
@@ -312,6 +387,7 @@ class GridTool {
     return {
       columns: this.data.columns,
       items: this.data.items,
+      columnWidths: this.data.columnWidths,
     };
   }
 
@@ -328,11 +404,88 @@ class GridTool {
     return {
       columns: {},
       items: {},
+      columnWidths: {},
     };
   }
 
   static get shortcut() {
     return "CMD+SHIFT+G";
+  }
+
+  addResizeHandlers(handle, columnIndex) {
+    let isResizing = false;
+    let startX, startWidths;
+
+    handle.addEventListener("mousedown", (e) => {
+      isResizing = true;
+      startX = e.clientX;
+
+      // Initialize column widths if not set
+      if (
+        !this.data.columnWidths ||
+        this.data.columnWidths.length !== this.data.columns
+      ) {
+        this.data.columnWidths = new Array(this.data.columns).fill(1);
+      }
+
+      startWidths = [...this.data.columnWidths];
+
+      document.addEventListener("mousemove", handleMouseMove);
+      document.addEventListener("mouseup", handleMouseUp);
+
+      // Add visual feedback
+      this.gridContainer.classList.add("grid-resizing");
+
+      e.preventDefault();
+    });
+
+    const handleMouseMove = (e) => {
+      if (!isResizing) return;
+
+      const deltaX = e.clientX - startX;
+      const containerWidth = this.gridContainer.offsetWidth;
+      const deltaRatio = (deltaX / containerWidth) * this.data.columns;
+
+      // Update the widths of adjacent columns
+      const newWidths = [...startWidths];
+      newWidths[columnIndex] = Math.max(
+        0.2,
+        startWidths[columnIndex] + deltaRatio
+      );
+      newWidths[columnIndex + 1] = Math.max(
+        0.2,
+        startWidths[columnIndex + 1] - deltaRatio
+      );
+
+      this.data.columnWidths = newWidths;
+      this.applyColumnWidths();
+      this.updateResizeHandlePositions();
+    };
+
+    const handleMouseUp = () => {
+      isResizing = false;
+      this.gridContainer.classList.remove("grid-resizing");
+      document.removeEventListener("mousemove", handleMouseMove);
+      document.removeEventListener("mouseup", handleMouseUp);
+    };
+
+    // Show handle on hover
+    handle.addEventListener("mouseenter", () => {
+      handle.classList.add("grid-resize-handle--visible");
+    });
+
+    handle.addEventListener("mouseleave", () => {
+      if (!isResizing) {
+        handle.classList.remove("grid-resize-handle--visible");
+      }
+    });
+  }
+
+  updateResizeHandlePositions() {
+    const handles = this.gridContainer.querySelectorAll(".grid-resize-handle");
+    handles.forEach((handle, index) => {
+      this.positionResizeHandle(handle, index);
+    });
   }
 }
 
