@@ -6,30 +6,30 @@
     <title>Editor.js Example</title>
 
     <!-- External Fonts -->
-    <link
-      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap"
-      rel="stylesheet"
-    />
+    <link href="./css/fontface.css" rel="stylesheet" />
 
     <!-- External CSS -->
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css"
-    />
+    <link rel="stylesheet" href="./css/atom-one-dark.min.css" />
 
     <!-- Custom Plugin Styles -->
-    <link rel="stylesheet" href="./plugins/font-size/font-size.css" />
-    <link rel="stylesheet" href="./plugins/text-color/text-color.css" />
-    <link rel="stylesheet" href="./plugins/code-block/code-block.css" />
-    <link rel="stylesheet" href="./plugins/line-separator/line-separator.css" />
-    <link rel="stylesheet" href="./plugins/web-bookmark/web-bookmark.css" />
-    <link rel="stylesheet" href="./plugins/checklist/checklist.css" />
+    <link rel="stylesheet" href="./plugins/custom/font-size/font-size.css" />
+    <link rel="stylesheet" href="./plugins/custom/text-color/text-color.css" />
+    <link rel="stylesheet" href="./plugins/custom/code-block/code-block.css" />
     <link
       rel="stylesheet"
-      href="./plugins/cloudinary-image/cloudinary-image.css"
+      href="./plugins/custom/line-separator/line-separator.css"
     />
-    <link rel="stylesheet" href="./plugins/image/image.css" />
-    <link rel="stylesheet" href="./plugins/grid/grid.css" />
+    <link
+      rel="stylesheet"
+      href="./plugins/custom/web-bookmark/web-bookmark.css"
+    />
+    <link rel="stylesheet" href="./plugins/custom/checklist/checklist.css" />
+    <link
+      rel="stylesheet"
+      href="./plugins/custom/cloudinary-image/cloudinary-image.css"
+    />
+    <link rel="stylesheet" href="./plugins/custom/image/image.css" />
+    <link rel="stylesheet" href="./plugins/custom/grid/grid.css" />
 
     <style>
       body {
@@ -50,31 +50,30 @@
     </style>
 
     <!-- Core Editor.js and Official Plugins -->
-    <script src="https://cdn.jsdelivr.net/npm/@editorjs/editorjs@latest"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@editorjs/header@latest"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@editorjs/paragraph@latest"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@editorjs/list@latest"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@editorjs/table@latest"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@editorjs/inline-code@latest"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@editorjs/marker@latest"></script>
-    <script src="https://cdn.jsdelivr.net/npm/editorjs-toggle-block"></script>
-    <script src="https://cdn.jsdelivr.net/npm/editorjs-tooltip"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@editorjs/nested-list@latest"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@editorjs/underline@latest"></script>
-    <script src="https://cdn.jsdelivr.net/npm/editorjs-strikethrough@1.0.0/dist/bundle.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@editorjs/embed@2.7.6/dist/embed.umd.min.js"></script>
+    <script src="./plugins/editorjs@latest.js"></script>
+    <script src="./plugins/header@latest.js"></script>
+    <script src="./plugins/paragraph@latest.js"></script>
+    <script src="./plugins/list@latest.js"></script>
+    <script src="./plugins/table@latest.js"></script>
+    <script src="./plugins/inline-code@latest.js"></script>
+    <script src="./plugins/marker@latest.js"></script>
+    <script src="./plugins/editorjs-toggle-block.js"></script>
+    <script src="./plugins/editorjs-tooltip.js"></script>
+    <script src="./plugins/nested-list@latest.js"></script>
+    <script src="./plugins/underline@latest.js"></script>
+    <script src="./plugins/bundle.min.js"></script>
     <!-- External Dependencies -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="./plugins/highlight.min.js"></script>
     <!-- Custom Plugins -->
-    <script src="./plugins/font-size/font-size.js"></script>
-    <script src="./plugins/text-color/text-color.js"></script>
-    <script src="./plugins/code-block/code-block.js"></script>
-    <script src="./plugins/line-separator/line-separator.js"></script>
-    <script src="./plugins/web-bookmark/web-bookmark.js"></script>
-    <script src="./plugins/checklist/checklist.js"></script>
-    <script src="./plugins/cloudinary-image/cloudinary-image.js"></script>
-    <script src="./plugins/image/image.js"></script>
-    <script src="./plugins/grid/grid.js"></script>
+    <script src="./plugins/custom/font-size/font-size.js"></script>
+    <script src="./plugins/custom/text-color/text-color.js"></script>
+    <script src="./plugins/custom/code-block/code-block.js"></script>
+    <script src="./plugins/custom/line-separator/line-separator.js"></script>
+    <script src="./plugins/custom/web-bookmark/web-bookmark.js"></script>
+    <script src="./plugins/custom/checklist/checklist.js"></script>
+    <script src="./plugins/custom/cloudinary-image/cloudinary-image.js"></script>
+    <script src="./plugins/custom/image/image.js"></script>
+    <script src="./plugins/custom/grid/grid.js"></script>
   </head>
 
   <body>
@@ -277,22 +276,6 @@
           toggle: {
             class: ToggleBlock,
             inlineToolbar: true,
-          },
-
-          embed: {
-            class: Embed,
-            config: {
-              services: {
-                youtube: true,
-                codepen: true,
-                instagram: true,
-                twitter: true,
-                facebook: true,
-                vimeo: true,
-                twitch: true,
-                coub: true,
-              },
-            },
           },
 
           tooltip: {
